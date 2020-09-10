@@ -2,9 +2,9 @@ package model;
 
 public class Client {
 	
-	int nit;
+	int identificationNumber;
 	int phone;
-	String typeIdentification;
+	String identificationType;
 	String name;
 	String addres;
 
