@@ -1,4 +1,8 @@
 package model;
+
+import java.util.List;
+import java.util.ArrayList;
+
 /**
  * 
  * @author JuanP
@@ -12,6 +16,9 @@ public class Restaurant {
 	int nit;
 	String name;
 	String nameAdmin;
+	List<Product> products;
+	List<Client> clients;
+	List<Order> orders;
 	
 	/**
 	 * Constructor of restaurant class
@@ -26,6 +33,7 @@ public class Restaurant {
 		this.nit = nit;
 		this.name=name;
 		this.nameAdmin = nameAdmin;
+		products = new ArrayList<Product>();
 	}
 	
 	/**
@@ -82,6 +90,33 @@ public class Restaurant {
 	 */
 	public String getNameAdmin() {
 		return nameAdmin;
+	}
+	
+	/**
+	 * pre:
+	 * pos:
+	 * @return List<Product> products
+	 */
+	public List<Product> getProducts(){
+		return products;
+	}
+	
+	/**
+	 * pre:
+	 * pos:
+	 * @return List<Client> products
+	 */
+	public List<Client> getClients(){
+		return clients;
+	}
+	
+	/**
+	 * pre:
+	 * pos:
+	 * @return List<Order> products
+	 */
+	public List<Order> getOrders(){
+		return orders;
 	}
 	
 }
