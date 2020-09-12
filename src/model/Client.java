@@ -35,42 +35,92 @@ public class Client {
 
 	}
 	
+	/**
+	 * pre:
+	 * pos:
+	 * @param identificationNumber
+	 */
 	public void setIdentificationNumber(int identificationNumber) {
 		this.identificationNumber = identificationNumber;
 	}
 	
+	/**
+	 * pre:
+	 * pos:
+	 * @return int identificationNumber
+	 */
 	public int getIdentificationNumber() {
 		return identificationNumber;
 	}
 	
+	/**
+	 * pre:
+	 * pos:
+	 * @param phone
+	 */
 	public void setPhone(int phone) {
 		this.phone = phone;
 	}
 	
+	/**
+	 * pre:
+	 * pos:
+	 * @return int phone
+	 */
 	public int getPhone() {
 		return phone;
 	}
 	
+	/**
+	 * pre:
+	 * pos:
+	 * @param identificationType
+	 */
 	public void setIdentificationType(String identificationType) {
 		this.identificationType = identificationType;
 	}
 	
+	/**
+	 * pre:
+	 * pos:
+	 * @return String identificationType
+	 */
 	public String getIdentificationType() {
 		return identificationType;
 	}
 	
+	/**
+	 * pre:
+	 * pos:
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
+	/**
+	 * pre:
+	 * pos:
+	 * @return String name
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * pre:
+	 * pos:
+	 * @param addres
+	 */
 	public void setAddres(String addres) {
 		this.addres = addres;
 	}
 	
+	/**
+	 * pre:
+	 * pos:
+	 * @return String addres
+	 */
 	public String getAddres() {
 		return addres;
 	}

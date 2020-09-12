@@ -28,28 +28,58 @@ public class Restaurant {
 		this.nameAdmin = nameAdmin;
 	}
 	
+	/**
+	 * pre:
+	 * pos: change the nit
+	 * @param nit
+	 */
 	public void setNit(int nit) {
 		
 		this.nit = nit;
 	}
 	
+	/**
+	 * pre:
+	 * pos:
+	 * @return int nit
+	 */
 	public int getNit() {
 		return nit;
 	}
 	
+	/**
+	 * pre:
+	 * pos:
+	 * @param name
+	 */
 	public void setName(String name) {
 		
 		this.name = name;
 	}
 	
+	/**
+	 * pre:
+	 * pos:
+	 * @return String name
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * pre:
+	 * pos:
+	 * @param nameAdmin
+	 */
 	public void setNameAdmin(String nameAdmin) {
 		this.nameAdmin = nameAdmin;
 	}
 	
+	/**
+	 * pre:
+	 * pos:
+	 * @return String nameAdmin
+	 */
 	public String getNameAdmin() {
 		return nameAdmin;
 	}
