@@ -1,19 +1,25 @@
 package model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author JuanP
  * 
  * Class Client
  * 
  */
-public class Client {
-	
+public class Client implements Serializable {
+	public static final long serialVersionUID = 1;
 	/** ATRIBUTES */
 	int identificationNumber;
 	int phone;
 	String identificationType;
-	String name;
+	String firstName;
+	String lastName;
 	String addres;
+	List<Order> orders;
 	
 	/**
 	 * Constructor of client class
@@ -25,13 +31,15 @@ public class Client {
 	 * @param name the name of the client
 	 * @param addres the addres of the client
 	 */
-	public Client(int identificationNumber, int phone, String identificationType, String name, String addres) {
+	public Client(int identificationNumber, int phone, String identificationType, String firstName, String lastName, String addres) {
 
 		this.identificationNumber = identificationNumber;
 		this.phone = phone;
 		this.identificationType = identificationType;
-		this.name = name;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.addres = addres;
+		orders = new ArrayList<Order>();
 
 	}
 	
@@ -94,8 +102,8 @@ public class Client {
 	 * pos:
 	 * @param name
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 	
 	/**
@@ -103,8 +111,26 @@ public class Client {
 	 * pos:
 	 * @return String name
 	 */
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	/**
+	 * pre:
+	 * pos:
+	 * @param lastName
+	 */
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	/**
+	 * pre:
+	 * pos:
+	 * @return
+	 */
+	public String getLastName() {
+		return lastName;
 	}
 	
 	/**
@@ -123,6 +149,15 @@ public class Client {
 	 */
 	public String getAddres() {
 		return addres;
+	}
+	
+	/**
+	 * pre:
+	 * pos:
+	 * @return List<Order> products
+	 */
+	public List<Order> getOrders(){
+		return orders;
 	}
 
 }

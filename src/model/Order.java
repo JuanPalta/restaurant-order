@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -10,14 +11,15 @@ import java.util.List;
  * Class Order
  * 
  */
-public class Order {
-	
+public class Order implements Serializable {
+	public static final long serialVersionUID = 1;
 	/** ATRIBUTES */
 	int code;
 	int clientCode;
 	int restaurantNit;
-	Date date;
+	String date;
 	List<Product> products;
+	String state;
 	
 	/**
 	 * Constructor of order class
@@ -28,12 +30,14 @@ public class Order {
 	 * @param restaurantNit the nit of the restaurant where buy the products
 	 * @param products the list of products
 	 */
-	public Order(int code, int clientCode,int restaurantNit, List<Product> products) {
+	public Order(int clientCode,int restaurantNit, List<Product> products) {
 		
-		this.code = code;
+		code = (int) Math.random();
 		this.clientCode = clientCode;
 		this.restaurantNit = restaurantNit;
 		this.products = products;
+		state = "REQUESTED";
+		date = new Date().toString();
 		
 	}
 	
@@ -96,7 +100,7 @@ public class Order {
 	 * pos:
 	 * @return Date date
 	 */
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 	

@@ -1,7 +1,9 @@
 package model;
 
 import java.util.List;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * 
@@ -10,15 +12,14 @@ import java.util.ArrayList;
  * Class Restaurant 
  *
  */
-public class Restaurant {
-	
+public class Restaurant implements Serializable{
+	public static final long serialVersionUID = 1;
 	/** ATRIBUTES */
 	int nit;
 	String name;
 	String nameAdmin;
 	List<Product> products;
 	List<Client> clients;
-	List<Order> orders;
 	
 	/**
 	 * Constructor of restaurant class
@@ -34,6 +35,7 @@ public class Restaurant {
 		this.name=name;
 		this.nameAdmin = nameAdmin;
 		products = new ArrayList<Product>();
+		clients = new ArrayList<Client>();
 	}
 	
 	/**
@@ -111,12 +113,55 @@ public class Restaurant {
 	}
 	
 	/**
-	 * pre:
-	 * pos:
-	 * @return List<Order> products
+	 * 
+	 * @param product
 	 */
-	public List<Order> getOrders(){
-		return orders;
+	public void addProduct() {
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+		System.out.println("INSERT CODE: ");
+		int code = Integer.parseInt(sc.nextLine());
+		System.out.println("INSERT COST: ");
+		int cost = Integer.parseInt(sc.nextLine());
+		System.out.println("INSERT THE NAME: ");
+		String name = sc.nextLine();
+		System.out.println("INSERT THE DESCRIPTION: ");
+		String description = sc.nextLine();
+		int count = 0;
+		for(int i=0;i<products.size();i++) {
+			
+			if(products.get(i).code == code) {
+				count++;
+			}
+			
+		}
+		if(count == 0) {
+			products.add(new Product(code,nit,cost,name,description));
+		} else {
+			
+			System.out.println("could not be added because there is already a product with that code");
+		}
+		
+		
+	}
+	
+	public void addClient() {
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+		System.out.println("INSERT IDENTIFICATION NUMBER: ");
+		int n = Integer.parseInt(sc.nextLine());
+		System.out.println("INSERT THE PHONE: ");
+		int p = Integer.parseInt(sc.nextLine());
+		System.out.println("INSERT IDENTIFICATION TYPE : TI/PP/CC/CE");
+		String t = sc.nextLine();
+		System.out.println("INSERT THE FIRSTNAME: ");
+		String f = sc.nextLine();
+		System.out.println("INSERT THE LASTNAME: ");
+		String l = sc.nextLine();
+		System.out.println("INSERT ADDRES");
+		String a = sc.nextLine();
+		clients.add(new Client(n,p,t,f,l,a));
+		System.out.println("Client was registered correctly ");
 	}
 	
 }
