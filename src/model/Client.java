@@ -40,7 +40,18 @@ public class Client implements Serializable {
 		this.lastName = lastName;
 		this.addres = addres;
 		orders = new ArrayList<Order>();
-
+		
+	}
+	
+	/**
+	 * 
+	 * @param clientCode
+	 * @param restaurantNit
+	 * @param products
+	 */
+	public void addOrder(int clientCode,int restaurantNit, List<Product> products) {
+		Order n = new Order(clientCode,restaurantNit,products);
+		orders.add(n);
 	}
 	
 	/**
@@ -159,5 +170,7 @@ public class Client implements Serializable {
 	public List<Order> getOrders(){
 		return orders;
 	}
+	
+	
 
 }
