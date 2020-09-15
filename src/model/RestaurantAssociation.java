@@ -60,15 +60,7 @@ public class RestaurantAssociation {
 	 * @throws ClassNotFoundException 
 	 * 
 	 */
-	public  void registerRestaurant() throws ClassNotFoundException, IOException {
-		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Insert the name of the restaurant");
-		String name = sc.nextLine();
-		System.out.println("Insert the nameAdmin");
-		String nameAdmin = sc.nextLine();
-		System.out.println("Insert the nit");
-		int nit = Integer.parseInt(sc.nextLine());
+	public  void registerRestaurant(int nit, String name, String nameAdmin) throws ClassNotFoundException, IOException {
 		restaurants.add(new Restaurant(nit,name,nameAdmin));
 		System.out.println("the restaurant was registered correctly");
 		saveRestaurants();
@@ -87,15 +79,13 @@ public class RestaurantAssociation {
 	 
  }
 	
-	/*private void importRestaurants(String filename) throws IOException,ClassNotFoundException {
+	public void importRestaurants(String filename,String separator) throws IOException,ClassNotFoundException,FileNotFoundException{
 			 BufferedReader reader = new BufferedReader(new FileReader(filename));
 			 String line = reader.readLine();
 			 line = reader.readLine();
 			 restaurants.clear();
 			 while(line != null) {
 				 line.trim();
-				 System.out.println("CHOOSE THE SEPARATOR IN THE FILE");
-				 String separator = sc.nextLine();
 				 String[] sp = line.split(separator);
 				 restaurants.add(new Restaurant(Integer.parseInt(sp[0]),sp[1],sp[2]));
 				 line = reader.readLine();
@@ -103,9 +93,13 @@ public class RestaurantAssociation {
 			 }
 			 saveRestaurants();
 			 reader.close();
-			 
-			 
-		 
 	}
-	*/
+	
+	public void showRestaurants() {
+		
+		for(int i = 0; i<restaurants.size();i++) {
+			
+			System.out.println((i+1) + "." + restaurants.get(i).getName() + " " + restaurants.get(i).getNameAdmin() + " " + restaurants.get(i).getNit());
+		}
+	}
 }

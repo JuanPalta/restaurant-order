@@ -1,9 +1,12 @@
 package model;
 
 import java.util.List;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * 
@@ -116,17 +119,7 @@ public class Restaurant implements Serializable{
 	 * 
 	 * @param product
 	 */
-	public void addProduct() {
-		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
-		System.out.println("INSERT CODE: ");
-		int code = Integer.parseInt(sc.nextLine());
-		System.out.println("INSERT COST: ");
-		int cost = Integer.parseInt(sc.nextLine());
-		System.out.println("INSERT THE NAME: ");
-		String name = sc.nextLine();
-		System.out.println("INSERT THE DESCRIPTION: ");
-		String description = sc.nextLine();
+	public void addProduct(int code,int cost,String name, String description) {
 		int count = 0;
 		for(int i=0;i<products.size();i++) {
 			
@@ -145,23 +138,45 @@ public class Restaurant implements Serializable{
 		
 	}
 	
-	public void addClient() {
-		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
-		System.out.println("INSERT IDENTIFICATION NUMBER: ");
-		int n = Integer.parseInt(sc.nextLine());
-		System.out.println("INSERT THE PHONE: ");
-		int p = Integer.parseInt(sc.nextLine());
-		System.out.println("INSERT IDENTIFICATION TYPE : TI/PP/CC/CE");
-		String t = sc.nextLine();
-		System.out.println("INSERT THE FIRSTNAME: ");
-		String f = sc.nextLine();
-		System.out.println("INSERT THE LASTNAME: ");
-		String l = sc.nextLine();
-		System.out.println("INSERT ADDRES");
-		String a = sc.nextLine();
+	public void addClient(int n, int p, String t, String f, String l, String a) {
 		clients.add(new Client(n,p,t,f,l,a));
 		System.out.println("Client was registered correctly ");
+	}
+	
+	public void importProducts(String filename,String separator) throws IOException,ClassNotFoundException,FileNotFoundException{
+		 BufferedReader reader = new BufferedReader(new FileReader(filename));
+		 String line = reader.readLine();
+		 line = reader.readLine();
+		 products.clear();
+		 while(line != null) {
+			 line.trim();
+			 String[] sp = line.split(separator);
+			 products.add(new Product(Integer.parseInt(sp[0]),Integer.parseInt(sp[1]),Integer.parseInt(sp[2]),sp[3],sp[4]));
+			 line = reader.readLine();
+			 
+		 }
+		 reader.close();
+}
+	public void importClients(String filename,String separator) throws IOException,ClassNotFoundException,FileNotFoundException{
+		 BufferedReader reader = new BufferedReader(new FileReader(filename));
+		 String line = reader.readLine();
+		 line = reader.readLine();
+		 clients.clear();
+		 while(line != null) {
+			 line.trim();
+			 String[] sp = line.split(separator);
+			 clients.add(new Client(Integer.parseInt(sp[0]),Integer.parseInt(sp[1]),sp[2],sp[3],sp[4],sp[5]));
+			 line = reader.readLine();
+			 
+		 }
+		 reader.close();
+}
+	public void showClients() {
+		for(int i = 0; i<clients.size();i++) {
+		 	
+			 System.out.println((i+1) + "." + clients.get(i).getLastName() + " " +
+			 clients.get(i).getFirstName() + " " + clients.get(i).getIdentificationNumber());
+		 }
 	}
 	
 }

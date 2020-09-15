@@ -171,6 +171,39 @@ public class Client implements Serializable {
 		return orders;
 	}
 	
+	/**
+	 * 
+	 * @param state
+	 * @param index
+	 */
+	public void changeState(String state, int index) {
+		if(orders.get(index).getState().equalsIgnoreCase("REQUESTED") && state.equalsIgnoreCase("IN PROCESS") || state.equalsIgnoreCase("SENT")) {
+			
+			orders.get(index).setState(state);
+		} else if(orders.get(index).getState().equalsIgnoreCase("IN PROCESS") && state.equalsIgnoreCase("SENT")){
+			orders.get(index).setState(state);
+		} else {
+			
+			System.err.println("You cant change in reverse");
+		}
+		
+	}
+	
+	public void showOrders() {
+		
+		for(int i = 0; i<orders.size();i++) {
+			System.out.println((i+1) + "." + orders.get(i).restaurantNit + " " +
+			orders.get(i).code + " " + orders.get(i).date + " " + orders.get(i).clientCode + " " + orders.get(i).state);
+			System.out.println("PRODUCTS IN THIS ORDER: ");
+			for(int j = 0; j<orders.get(i).getProducts().size();j++) {
+			 System.out.println(orders.get(i).getProducts().get(j).code + " " + orders.get(i).getProducts().get(j).name + " " + orders.get(i).getProducts().get(j).description + " "
+					 			 + orders.get(i).getProducts().get(j).cost + " " + orders.get(i).getProducts().get(j).restaurantNit);
+				
+			}
+			
+		}
+	}
+	
 	
 
 }

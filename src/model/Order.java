@@ -104,6 +104,14 @@ public class Order implements Serializable {
 		return date;
 	}
 	
+	public String getState() {
+		return state;
+	}
+	
+	public void setState(String state) {
+		this.state = state;
+	}
+	
 	/**
 	 * pre:
 	 * pos:
