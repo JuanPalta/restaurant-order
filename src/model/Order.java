@@ -41,6 +41,17 @@ public class Order implements Serializable {
 		
 	}
 	
+		public Order(int code, int clientCode,int restaurantNit, List<Product> products) {
+		
+		this.code = code;
+		this.clientCode = clientCode;
+		this.restaurantNit = restaurantNit;
+		this.products = products;
+		state = "REQUESTED";
+		date = new Date().toString();
+		
+	}
+	
 	/**
 	 * pre:
 	 * pos:

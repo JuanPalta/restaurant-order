@@ -1,5 +1,8 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -203,6 +206,59 @@ public class Client implements Serializable {
 			
 		}
 	}
+	//PENDING
+	public void importOrders(String filename,String separator,int restaurantNit,int clientCode) throws IOException {
+		 BufferedReader reader = new BufferedReader(new FileReader(filename));
+		 String line = reader.readLine();
+		 line = reader.readLine();
+		 orders.clear();
+		 List<Product> products = new ArrayList<Product>();
+		 while(line != null) {
+			 line.trim();
+			 String[] sp = line.split(separator);
+			 products.add(new Product(Integer.parseInt(sp[2]),restaurantNit,Integer.parseInt(sp[4]),sp[3],sp[5]));
+			 line = reader.readLine();
+			 
+		 }
+		 for(int i=0;i<products.size();i++) {
+			 
+		 }
+		 
+		 
+		 reader.close();
+	}
+	
+		public Order SearchOrder(int code) {
+		Order o = null;
+		boolean exit = false;
+		for(int i=0;i<orders.size() && exit == false;i++) {
+			
+			if(orders.get(i).code == code) {
+				o = orders.get(i);
+				exit = true;
+			}
+		}
+		return o;
+	}
+		 public void updateAllData(int identificationNumber, int phone, String identificationType, String firstName, String lastName, String addres,List<Order>orderss, int search) {
+			 if(SearchOrder(search) != null) {
+				 
+				 setIdentificationNumber(identificationNumber);
+				 setPhone(phone);
+				 setIdentificationType(identificationType);
+				 setFirstName(firstName);
+				 setLastName(lastName);
+				 setAddres(addres);
+				 orders = orderss;
+				 
+				 
+				 
+			 } else {
+				 System.err.println("Not found");
+			 }
+			 
+			  
+		  }
 	
 	
 

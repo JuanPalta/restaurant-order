@@ -129,4 +129,11 @@ public class Product implements Serializable {
 	public String getDescription() {
 		return description;
 	}
+	
+	public void updateAllData(int code,int cost,String name,String description){
+		setCode(code);
+		setCost(cost);
+		setName(name);
+		setDescription(description);
+	}
 }

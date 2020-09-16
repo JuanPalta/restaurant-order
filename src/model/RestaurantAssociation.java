@@ -102,4 +102,19 @@ public class RestaurantAssociation {
 			System.out.println((i+1) + "." + restaurants.get(i).getName() + " " + restaurants.get(i).getNameAdmin() + " " + restaurants.get(i).getNit());
 		}
 	}
+	
+	public Restaurant searchRestaurant(int nit) {
+		Restaurant r = null;
+		boolean exit = false;
+		for(int i=0;i<restaurants.size() && exit == false;i++) {
+			
+			if(restaurants.get(i).nit== nit) {
+				r = restaurants.get(i);
+				exit = true;
+			}
+		}
+		return r;
+	}
+	
+	
 }

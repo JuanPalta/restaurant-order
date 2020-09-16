@@ -139,7 +139,113 @@ public class Menu {
 			break;
 		
 	case UPDATE_DATA:
+		System.out.println("WHAT DO YOU WANT UPDATE: " + "\n" + "1.RESTAURANT" + "\n" + "2.CLIENT" + "\n" + "3.PRODUCT" + "\n" + "4.ORDER");
+		int optionup = Integer.parseInt(sc.nextLine());
+		switch(optionup) {
+			
+		case 1:
+			 System.out.println("INSERT THE NIT OF THE RESTAURANT TO SEARCH");
+			 int nitR = Integer.parseInt(sc.nextLine());
+			 System.out.println("CHOOSE AN OPTION :" + "1.UPDATE ALL" + " " + "2.UPDATE NAME" + " " + "3.UPDATE NAME ADMIN" + "4.MANAGE THE PRODUCTS" + " " + "5.MANAGE THE CLIENTS");
+			 int optionr = Integer.parseInt(sc.nextLine());
+			 switch(optionr) {
+			 case 1:
+				 System.out.println("INSERT THE NIT: ");
+				 int nit = Integer.parseInt(sc.nextLine());
+				 System.out.println("INSERT THE NAME: ");
+				 String name = sc.nextLine();
+				 System.out.println("INSERT NAME ADMIN: ");
+				 String nameAdmin = sc.nextLine();
+				 int opProduct = 0;
+				 int opClients = 0;
+				 ArrayList<Product> p = new ArrayList<Product>();
+				 ArrayList<Client> c = new ArrayList<Client>();
+				 while(opProduct != 2) {
+					 System.out.println("WHICH PRODUCTS HAVE THIS RESTAURANT ");
+					 System.out.println("PRESS 1 TO ADD A PRODUCT " + " " + "2 TO EXIT");
+					 opProduct = Integer.parseInt(sc.nextLine());
+					 if(opProduct == 1) {
+						 
+						 System.out.println("PRODUCT : ");
+						 System.out.println("INSERT THE CODE: ");
+						 int code = Integer.parseInt(sc.nextLine());
+						 System.out.println("INSERT THE COST: ");
+						 int cost = Integer.parseInt(sc.nextLine());
+						 System.out.println("INSERT THE NAME: ");
+						 String namep = sc.nextLine();
+						 System.out.println("INSERT THE DESCRIPTION: ");
+						 String description = sc.nextLine();
+						 p.add(new Product(code,restaurantA.searchRestaurant(nitR).getNit(),cost,namep,description));
+					 }
+					
+				 }
+				 while(opClients != 2) {
+					 System.out.println("WHICH CLIENTS HAVE THIS RESTAURANT ");
+					 System.out.println("PRESS 1 TO ADD A CLIENT " + " " + "2 TO EXIT");
+					 opClients = Integer.parseInt(sc.nextLine());
+					 if(opClients == 1) {
+						 System.out.println("CLIENT : ");
+						 System.out.println("INSERT THE IDENTIFICATION: ");
+						 int identification = Integer.parseInt(sc.nextLine());
+						 System.out.println("INSERT THE PHONE: ");
+						 int phone = Integer.parseInt(sc.nextLine());
+						 System.out.println("INSERT THE TYPE OF IDENTIFICATION: TI/CC/CE/PP");
+						 String type = sc.nextLine();
+						 System.out.println("INSERT THE FIRTSNAME: ");
+						 String firstName = sc.nextLine();
+						 System.out.println("INSERT THE LASTNAME: ");
+						 String lastName = sc.nextLine();
+						 System.out.println("INSERT THE ADDRES: ");
+						 String addres = sc.nextLine();
+						 c.add(new Client(identification,phone,type,firstName,lastName,addres));
+					 }
+					 
+				 }
+				 if(restaurantA.searchRestaurant(nitR) != null	) {
+					restaurantA.searchRestaurant(nitR).updateAllData(nit, name, nameAdmin, p, c);
+					System.out.println("UPDATE SUCCESFULY");
+					restaurantA.saveRestaurants();
+				 } else {
+					 System.out.println("THE NIT DONT FOUND");
+					 
+				 }
+				
+				 
+				 break;
+				 
+			 case 2:
+				 
+				if(restaurantA.searchRestaurant(nitR) != null) {
+					 System.out.println("PUT THE NAME: ");
+					 name = sc.nextLine();
+					 restaurantA.searchRestaurant(nitR).setName(name);
+					 restaurantA.saveRestaurants();
+				}
+				 else {
+					 System.out.println("F BRO");
+				 }
+			break;
+			
+			 case 3:
+				 if(restaurantA.searchRestaurant(nitR) != null) {
+					 System.out.println("PUT THE ADMINNAME: ");
+					 name = sc.nextLine();
+					 restaurantA.searchRestaurant(nitR).setNameAdmin(name);
+					 restaurantA.saveRestaurants();
+				}
+				 else {
+					 System.out.println("F BRO");
+				 }
 		
+				 break;
+				 
+			 case 4:
+				 
+				 break;
+				 
+		
+		}
+		}
 		break;
 		
 	case CHANGE_STATE:

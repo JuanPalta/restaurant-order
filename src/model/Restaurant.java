@@ -179,4 +179,43 @@ public class Restaurant implements Serializable{
 		 }
 	}
 	
-}
+		public Product SearchProduct(int code) {
+		Product n = null;
+		boolean exit = false;
+		for(int i=0;i<products.size() && exit == false;i++) {
+			
+			if(products.get(i).code== code) {
+				n = products.get(i);
+				exit = true;
+			}
+		}
+		return n;
+	}
+		
+		public Client SearchClient(int number) {
+			Client c = null;
+			boolean exit = false;
+			for(int i=0;i<clients.size() && exit == false;i++) {
+				
+				if(clients.get(i).identificationNumber== number) {
+					c = clients.get(i);
+					exit = true;
+				}
+			}
+			return c;
+		}
+		
+		 public void updateAllData(int nit,String name,String nameAdmin,List<Product> lispro,List<Client> clientss) {
+				 setNit(nit);
+				 setName(name);
+				 setNameAdmin(nameAdmin);
+				 products = lispro;
+				 clients = clientss;
+				 
+			 
+			 }
+			 
+			  
+		  }
+	
+
