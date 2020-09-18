@@ -107,12 +107,24 @@ public class Restaurant implements Serializable{
 	}
 	
 	/**
+	 * 
+	 * @param products
+	 */
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
+	
+	/**
 	 * pre:
 	 * pos:
 	 * @return List<Client> products
 	 */
 	public List<Client> getClients(){
 		return clients;
+	}
+	
+	public void setClients(List<Client>clients) {
+		this.clients = clients;
 	}
 	
 	/**
@@ -139,7 +151,27 @@ public class Restaurant implements Serializable{
 	}
 	
 	public void addClient(int n, int p, String t, String f, String l, String a) {
-		clients.add(new Client(n,p,t,f,l,a));
+		Client x = new Client(n,p,t,f,l,a);
+		if(clients.isEmpty()) {
+			clients.add(x);
+		} else {
+			
+			int i = 0;
+			while(i<clients.size() && x.compareTo(clients.get(i)) == 1) {
+				i++;
+				
+			}
+			
+			if(i<clients.size()) {
+				
+				clients.add(i,x);
+
+			} else {
+				
+				clients.add(x);
+			}
+			
+		}
 		System.out.println("Client was registered correctly ");
 	}
 	

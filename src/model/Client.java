@@ -13,7 +13,7 @@ import java.util.List;
  * Class Client
  * 
  */
-public class Client implements Serializable {
+public class Client implements Serializable,Comparable<Client> {
 	public static final long serialVersionUID = 1;
 	/** ATRIBUTES */
 	int identificationNumber;
@@ -240,25 +240,25 @@ public class Client implements Serializable {
 		}
 		return o;
 	}
-		 public void updateAllData(int identificationNumber, int phone, String identificationType, String firstName, String lastName, String addres,List<Order>orderss, int search) {
-			 if(SearchOrder(search) != null) {
-				 
+		
+		 public void updateAllData(int identificationNumber, int phone, String identificationType, String firstName, String lastName, String addres) {
 				 setIdentificationNumber(identificationNumber);
 				 setPhone(phone);
 				 setIdentificationType(identificationType);
 				 setFirstName(firstName);
 				 setLastName(lastName);
 				 setAddres(addres);
-				 orders = orderss;
-				 
-				 
-				 
-			 } else {
-				 System.err.println("Not found");
-			 }
-			 
-			  
+		
 		  }
+
+		@Override
+		public int compareTo(Client o) {
+			int comp = lastName.compareTo(o.lastName);
+			if(comp == 0) {
+				comp = firstName.compareTo(o.firstName);
+			}
+			return comp;
+		}
 	
 	
 

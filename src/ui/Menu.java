@@ -146,7 +146,8 @@ public class Menu {
 		case 1:
 			 System.out.println("INSERT THE NIT OF THE RESTAURANT TO SEARCH");
 			 int nitR = Integer.parseInt(sc.nextLine());
-			 System.out.println("CHOOSE AN OPTION :" + "1.UPDATE ALL" + " " + "2.UPDATE NAME" + " " + "3.UPDATE NAME ADMIN" + "4.MANAGE THE PRODUCTS" + " " + "5.MANAGE THE CLIENTS");
+			 System.out.println("CHOOSE AN OPTION :" + "1.UPDATE ALL" + " " + "2.UPDATE NAME" + " " + "3.UPDATE NAME ADMIN" + " " +
+					 			" " + "4.UPDATE NIT"+ " " + "5.UPDATE THE PRODUCTS" + " " + "6.UPDATE THE CLIENTS");
 			 int optionr = Integer.parseInt(sc.nextLine());
 			 switch(optionr) {
 			 case 1:
@@ -219,6 +220,7 @@ public class Menu {
 					 System.out.println("PUT THE NAME: ");
 					 name = sc.nextLine();
 					 restaurantA.searchRestaurant(nitR).setName(name);
+					 System.out.println("UPDATE SUCCESFULY");
 					 restaurantA.saveRestaurants();
 				}
 				 else {
@@ -231,6 +233,7 @@ public class Menu {
 					 System.out.println("PUT THE ADMINNAME: ");
 					 name = sc.nextLine();
 					 restaurantA.searchRestaurant(nitR).setNameAdmin(name);
+					 System.out.println("UPDATE SUCCESFULY");
 					 restaurantA.saveRestaurants();
 				}
 				 else {
@@ -238,15 +241,282 @@ public class Menu {
 				 }
 		
 				 break;
-				 
 			 case 4:
+				 
+				 if(restaurantA.searchRestaurant(nitR) != null) {
+					 System.out.println("PUT THE NIT: ");
+					 int nitf = Integer.parseInt(sc.nextLine());
+					 restaurantA.searchRestaurant(nitR).setNit(nitf);
+					 System.out.println("UPDATE SUCCESFULY");
+					 restaurantA.saveRestaurants();
+				}
+				 else {
+					 System.out.println("F BRO");
+				 }
+				 break;
+			 case 5:
+				 opProduct = 0;
+				 p = new ArrayList<Product>();
+				 while(opProduct != 2) {
+					 System.out.println("WHICH PRODUCTS HAVE THIS RESTAURANT ");
+					 System.out.println("PRESS 1 TO ADD A PRODUCT " + " " + "2 TO EXIT");
+					 opProduct = Integer.parseInt(sc.nextLine());
+					 if(opProduct == 1) {
+						 
+						 System.out.println("PRODUCT : ");
+						 System.out.println("INSERT THE CODE: ");
+						 int code = Integer.parseInt(sc.nextLine());
+						 System.out.println("INSERT THE COST: ");
+						 int cost = Integer.parseInt(sc.nextLine());
+						 System.out.println("INSERT THE NAME: ");
+						 String namep = sc.nextLine();
+						 System.out.println("INSERT THE DESCRIPTION: ");
+						 String description = sc.nextLine();
+						 p.add(new Product(code,restaurantA.searchRestaurant(nitR).getNit(),cost,namep,description));
+					 }
+				 }
+				 	if(restaurantA.searchRestaurant(nitR) != null	) {
+						restaurantA.searchRestaurant(nitR).setProducts(p);
+						System.out.println("UPDATE SUCCESFULY");
+						restaurantA.saveRestaurants();
+					 } else {
+						 System.out.println("THE NIT DONT FOUND");
+						 
+					 }
+				 
+				 break;
+			 case 6:
+				 opClients = 0;
+				 c = new ArrayList<Client>();
+				 while(opClients != 2) {
+					 System.out.println("WHICH CLIENTS HAVE THIS RESTAURANT ");
+					 System.out.println("PRESS 1 TO ADD A CLIENT " + " " + "2 TO EXIT");
+					 opClients = Integer.parseInt(sc.nextLine());
+					 if(opClients == 1) {
+						 System.out.println("CLIENT : ");
+						 System.out.println("INSERT THE IDENTIFICATION: ");
+						 int identification = Integer.parseInt(sc.nextLine());
+						 System.out.println("INSERT THE PHONE: ");
+						 int phone = Integer.parseInt(sc.nextLine());
+						 System.out.println("INSERT THE TYPE OF IDENTIFICATION: TI/CC/CE/PP");
+						 String type = sc.nextLine();
+						 System.out.println("INSERT THE FIRTSNAME: ");
+						 String firstName = sc.nextLine();
+						 System.out.println("INSERT THE LASTNAME: ");
+						 String lastName = sc.nextLine();
+						 System.out.println("INSERT THE ADDRES: ");
+						 String addres = sc.nextLine();
+						 c.add(new Client(identification,phone,type,firstName,lastName,addres));
+					 }
+					 
+				 }
+				 if(restaurantA.searchRestaurant(nitR) != null	) {
+					restaurantA.searchRestaurant(nitR).setClients(c);
+					System.out.println("UPDATE SUCCESFULY");
+					restaurantA.saveRestaurants();
+				 } else {
+					 System.out.println("THE NIT DONT FOUND");
+					 
+				 }
 				 
 				 break;
 				 
 		
-		}
+		}  
+		break;
+		
+		case 2:
+			 restaurantA.showRestaurants();
+			 System.out.println("PUT THE INDEX OF THE RESTAURANT TO SEARCH A CLIENT: ");
+			 index = Integer.parseInt(sc.nextLine())-1;
+			 System.out.println("INSERT THE IDENTIFICATION NUMBER OF THE CLIENT TO SEARCH");
+			 int in = Integer.parseInt(sc.nextLine());
+			 System.out.println("CHOOSE AN OPTION :" + "1.UPDATE ALL" + " " + "2.UPDATE FIRSTNAME AND LASTNAME" + " " + "3.UPDATE IDENTIFICATION NUMBER" + " " +
+					 			 " " + "4.UPDATE IDENTIFICATION TYPE"+ " " + "5.UPDATE ADDRES");
+			 int option2 = Integer.parseInt(sc.nextLine());
+			 switch(option2) {
+			 
+			 case 1:
+				 if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
+					 
+					 System.out.println("INSERT THE IDENTIFICATION NUMBER: ");
+					 int nin = Integer.parseInt(sc.nextLine());
+					 System.out.println("INSERT THE PHONE NUMBER: ");
+					 int phone = Integer.parseInt(sc.nextLine());
+					 System.out.println("INSERT THE IDENTIFICATION TYPE: TI/CC/CE/PP ");
+					 String type = sc.nextLine();
+					 System.out.println("INSERT THE FIRST NAME: ");
+					 String fname = sc.nextLine();
+					 System.out.println("INSERT THE LAST NAME: ");
+					 String lname = sc.nextLine();
+					 System.out.println("INSERT THE ADDRES: ");
+					 String addres = sc.nextLine();
+					 restaurantA.getRestaurants().get(index).SearchClient(in).updateAllData(nin,phone,type,fname,lname,addres);
+					 System.out.println("UPDATE SUCCESFULY");
+					 restaurantA.saveRestaurants();
+				 } else {
+					 
+					 System.err.println("DONT EXIST");
+				 }
+				 ;
+				 
+				 break;
+				 
+			 case 2:
+				 if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
+					 System.out.println("INSERT THE FIRST NAME: ");
+					 String fname = sc.nextLine();
+					 System.out.println("INSERT THE LAST NAME: ");
+					 String lname = sc.nextLine();
+					 restaurantA.getRestaurants().get(index).SearchClient(in).setFirstName(fname);
+					 restaurantA.getRestaurants().get(index).SearchClient(in).setLastName(lname);
+					 System.out.println("UPDATE SUCCESFULY");
+					 restaurantA.saveRestaurants();
+				 }
+				 else {
+					 System.err.println("DONT EXIST");
+				 }
+				 break;
+				 
+			 case 3:
+				 
+				 if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
+					 System.out.println("INSERT THE IDENTIFICATION NUMBER ");
+					 int n = Integer.parseInt(sc.nextLine());
+					 restaurantA.getRestaurants().get(index).SearchClient(in).setIdentificationNumber(n);
+					 System.out.println("UPDATE SUCCESFULY");
+					 restaurantA.saveRestaurants();
+				 }
+				 else {
+					 System.err.println("DONT EXIST");
+				 }
+				 break;
+				 
+			 case 4:
+				 if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
+					 System.out.println("INSERT THE IDENTIFICATION TYPE: TI/CC/CE/PP");
+					 String type = sc.nextLine();
+					 restaurantA.getRestaurants().get(index).SearchClient(in).setIdentificationType(type);
+					 System.out.println("UPDATE SUCCESFULY");
+					 restaurantA.saveRestaurants();
+				 }
+				 else {
+					 System.err.println("DONT EXIST");
+				 }
+				 break;
+			 case 5:
+				 if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
+					 System.out.println("INSERT THE ADDRES");
+					 String addres = sc.nextLine();
+					 restaurantA.getRestaurants().get(index).SearchClient(in).setAddres(addres);
+					 System.out.println("UPDATE SUCCESFULY");
+					 restaurantA.saveRestaurants();
+				 }
+				 else {
+					 System.err.println("DONT EXIST");
+				 }
+				 break;
+			 }
+			break;
+			
+		case 3:
+			restaurantA.showRestaurants();
+			System.out.println("PUT THE INDEX OF THE RESTAURANT TO SEARCH A PRODUCT: ");
+			 index = Integer.parseInt(sc.nextLine())-1;
+			 System.out.println("INSERT THE CODE OF THE PRODUCT TO SEARCH");
+			 int code = Integer.parseInt(sc.nextLine());
+			 System.out.println("CHOOSE AN OPTION :" + "1.UPDATE ALL" + " " + "2.UPDATE CODE" + " " + "3.UPDATE COST" + " " +
+					 			 " " + "4.UPDATE NAME"+ " " + "5.UPDATE DESCRIPTION");
+			 int optionP = Integer.parseInt(sc.nextLine());
+			 switch(optionP) {
+			 
+			 case 1:
+				 if(restaurantA.getRestaurants().get(index).SearchProduct(code) != null) {
+					 System.out.println("INSERT THE CODE");
+					 int codep = Integer.parseInt(sc.nextLine());
+					 System.out.println("INSERT THE COST");
+					 int costp = Integer.parseInt(sc.nextLine());
+					 System.out.println("INSERT THE NAME");
+					 String namep = sc.nextLine();
+					 System.out.println("INSERT THE DESCRIPTION"); 
+					 String description = sc.nextLine();
+					 restaurantA.getRestaurants().get(index).SearchProduct(code).updateAllData(codep,costp,namep,description);
+					 System.out.println("UPDATE SUCCESFULY");
+					 restaurantA.saveRestaurants();
+				 }
+				 else {
+					 System.err.println("DONT EXIST");
+					 
+				 }
+				 break;
+				 
+			 case 2:
+				 if(restaurantA.getRestaurants().get(index).SearchProduct(code) != null) {
+					 System.out.println("INSERT THE CODE");
+					 int codep = Integer.parseInt(sc.nextLine());
+					 restaurantA.getRestaurants().get(index).SearchProduct(code).setCode(codep);
+					 System.out.println("UPDATE SUCCESFULY");
+					 restaurantA.saveRestaurants();
+				 }
+				 else {
+					 System.err.println("DONT EXIST");
+					 
+				 }
+				 
+				 break;
+				 
+			 case 3:
+				 if(restaurantA.getRestaurants().get(index).SearchProduct(code) != null) {
+					 System.out.println("INSERT THE COST");
+					 int costp = Integer.parseInt(sc.nextLine());
+					 restaurantA.getRestaurants().get(index).SearchProduct(code).setCost(costp);
+					 System.out.println("UPDATE SUCCESFULY");
+					 restaurantA.saveRestaurants();
+				 }
+				 else {
+					 System.err.println("DONT EXIST");
+					 
+				 }
+				 break;
+				 
+			 case 4:
+				 if(restaurantA.getRestaurants().get(index).SearchProduct(code) != null) {
+					 System.out.println("INSERT THE NAME");
+					 String namep = sc.nextLine();
+					 restaurantA.getRestaurants().get(index).SearchProduct(code).setName(namep);
+					 System.out.println("UPDATE SUCCESFULY");
+					 restaurantA.saveRestaurants();
+				 }
+				 else {
+					 System.err.println("DONT EXIST");
+					 
+				 }
+				 break;
+				 
+			 case 5:
+				 if(restaurantA.getRestaurants().get(index).SearchProduct(code) != null) {
+					 System.out.println("INSERT THE DESCRIPTION");
+					 String description = sc.nextLine();
+					 restaurantA.getRestaurants().get(index).SearchProduct(code).setDescription(description);
+					 System.out.println("UPDATE SUCCESFULY");
+					 restaurantA.saveRestaurants();
+				 }
+				 else {
+					 System.err.println("DONT EXIST");
+					 
+				 }
+				 break;
+			 }
+			break;
+			
+		case 4:
+			
+			break;
+		
+		
 		}
 		break;
+		
 		
 	case CHANGE_STATE:
 		
