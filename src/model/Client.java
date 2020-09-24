@@ -206,24 +206,42 @@ public class Client implements Serializable,Comparable<Client> {
 			
 		}
 	}
-	//PENDING
-	public void importOrders(String filename,String separator,int restaurantNit,int clientCode) throws IOException {
+
+	public void importOrders(String filename,String separator,int restaurantNit,Restaurant r,int clientCode) throws IOException {
 		 BufferedReader reader = new BufferedReader(new FileReader(filename));
 		 String line = reader.readLine();
 		 line = reader.readLine();
-		 orders.clear();
-		 List<Product> products = new ArrayList<Product>();
 		 while(line != null) {
 			 line.trim();
+			 ArrayList<Product> products = new ArrayList<>();
 			 String[] sp = line.split(separator);
-			 products.add(new Product(Integer.parseInt(sp[2]),restaurantNit,Integer.parseInt(sp[4]),sp[3],sp[5]));
+			 if(SearchOrder(Integer.parseInt(sp[0])) != null) {
+			 for(int i=0;i<r.getProducts().size();i++) {
+				 
+				 if(Integer.parseInt(sp[1]) == r.getProducts().get(i).getCode()) {
+					  
+				 SearchOrder(Integer.parseInt(sp[0])).getProducts().add(new Product(Integer.parseInt(sp[1]),restaurantNit,Integer.parseInt(sp[2]),sp[3],sp[4]));
+					 
+				 }
+			 }
+			 
+			 } 
+			 else {
+				 
+				 for(int i=0;i<r.getProducts().size();i++) {
+					 
+					 if(Integer.parseInt(sp[1]) == r.getProducts().get(i).getCode()) {
+						 products.add(new Product(Integer.parseInt(sp[1]),restaurantNit,Integer.parseInt(sp[2]),sp[3],sp[4]));
+						 orders.add(new Order(Integer.parseInt(sp[0]),clientCode,restaurantNit,products)); 
+						 
+					 }
+					 }
+				 }
+				
+				 
 			 line = reader.readLine();
+			 }
 			 
-		 }
-		 for(int i=0;i<products.size();i++) {
-			 
-		 }
-		 
 		 
 		 reader.close();
 	}

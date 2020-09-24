@@ -32,7 +32,7 @@ public class Order implements Serializable {
 	 */
 	public Order(int clientCode,int restaurantNit, List<Product> products) {
 		
-		code = (int) Math.random();
+		code = (int) (Math.random() * 2500 + 1);
 		this.clientCode = clientCode;
 		this.restaurantNit = restaurantNit;
 		this.products = products;
@@ -130,5 +130,9 @@ public class Order implements Serializable {
 	 */
 	public List<Product> getProducts(){
 		return products;
+	}
+	
+	public void setProducts(List<Product> p){
+		products = p;
 	}
 }

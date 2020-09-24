@@ -183,7 +183,7 @@ public class Restaurant implements Serializable{
 		 while(line != null) {
 			 line.trim();
 			 String[] sp = line.split(separator);
-			 products.add(new Product(Integer.parseInt(sp[0]),Integer.parseInt(sp[1]),Integer.parseInt(sp[2]),sp[3],sp[4]));
+			 products.add(new Product(Integer.parseInt(sp[0]),nit,Integer.parseInt(sp[1]),sp[2],sp[3]));
 			 line = reader.readLine();
 			 
 		 }

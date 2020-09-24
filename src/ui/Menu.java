@@ -4,6 +4,7 @@ import model.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 public class Menu {
 
@@ -130,9 +131,21 @@ public class Menu {
 			System.out.println("INSERT THE NAME: ");
 			String nameP = sc.nextLine();
 			System.out.println("INSERT THE DESCRIPTION: ");
+			count = 0;
 			String descriptionP = sc.nextLine();
-			restaurantA.getRestaurants().get(index-1).addProduct(codeP,costP,nameP,descriptionP);
-			restaurantA.saveRestaurants();
+			for(int i=0;i<restaurantA.getRestaurants().get(index-1).getProducts().size();i++) {
+				if(restaurantA.getRestaurants().get(index-1).getProducts().get(i).getCode() == codeP  ) {
+					count++;
+				}
+			}
+			if(count == 0) {
+				
+				restaurantA.getRestaurants().get(index-1).addProduct(codeP,costP,nameP,descriptionP);
+				restaurantA.saveRestaurants();
+			} else {
+				System.err.println("A product with this code exists");
+			}
+			
 			break;
 		}
 		
@@ -510,7 +523,109 @@ public class Menu {
 			break;
 			
 		case 4:
-			
+			restaurantA.showRestaurants();
+			System.out.println("PUT THE INDEX OF THE RESTAURANT TO SEARCH A CLIENT: ");
+			 index = Integer.parseInt(sc.nextLine())-1;
+			 for(int i=0;i<restaurantA.getRestaurants().get(index).getClients().size();i++) {
+				 System.out.println((i+1) + "." + restaurantA.getRestaurants().get(index).getClients().get(i).getLastName() + " " +
+						 restaurantA.getRestaurants().get(index).getClients().get(i).getFirstName() + " " + restaurantA.getRestaurants().get(index).getClients().get(i).getIdentificationNumber());
+			 }
+			 System.out.println("INSERT THE INDEX THE CLIENT TO UPDATE A ORDER");
+			 int inclient = Integer.parseInt(sc.nextLine())-1;
+			 System.out.println("INSERT THE CODE OF THE ORDER TO UPDATE");
+			 int codeu = Integer.parseInt(sc.nextLine());
+			 if(restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu) != null) {
+				 System.out.println("CHOOSE AN OPTION : 1.ADD A PRODUCT  2.REMOVE A PRODUCT 3.OVERWRITE ALL PRODUCTS"); 
+				 int optionO = Integer.parseInt(sc.nextLine());
+				 switch(optionO) {
+				 
+				 case 1:
+					 System.out.println("INSERT THE QUANTITY OF THE PRODUCT");
+					 int many = Integer.parseInt(sc.nextLine());
+					 System.out.println("INSERT THE CODE OF THE PRODUCT TO ADD");
+					 code = Integer.parseInt(sc.nextLine());
+					 int count =0;
+					 for(int i=0;i<restaurantA.getRestaurants().get(index).getProducts().size();i++) {
+						if(restaurantA.getRestaurants().get(index).getProducts().get(i).getCode() == code) {
+						count++;
+						for(int j = 0;j<many;j++) {
+							restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().add(restaurantA.getRestaurants().get(index).getProducts().get(i)); 
+							 }
+						
+						 }
+					 }
+					 if(count>0) {
+						 System.out.println("ADDED SUCCESFULLY");
+						 restaurantA.saveRestaurants();
+					 }
+					 else {
+						 System.err.println("F");
+					 }
+					 
+					 break;
+					 
+				 case 2:
+					 for(int i=0;i<restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().size();i++) {
+						 
+						 System.out.println((i+1) + "." + restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().get(i).getName() + " " +
+								 restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().get(i).getDescription() + " " +
+								 restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().get(i).getCode());
+					 }
+					 System.out.println("PUT THE INDEX OF THE PRODUCT TO REMOVE");
+					 int indexR = Integer.parseInt(sc.nextLine())-1;
+					 restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().remove(indexR);
+					 restaurantA.saveRestaurants();
+					 break;
+				 case 3:
+
+					 System.out.println("Insert how many different products you will add");
+					 many = Integer.parseInt(sc.nextLine());
+					 ArrayList<Product> products = new ArrayList<Product>();
+					 int restNit = restaurantA.getRestaurants().get(index).getNit();
+					 code = 0;
+					 count=0;
+					 int cNumber = 0;
+					 for(int i=0;i<many ;i++) {
+						 System.out.println((i+1)+ "." + "PRODUCT");
+						 System.out.println("INSERT THE CODE OF THE PRODUCT: ");
+						 code = Integer.parseInt(sc.nextLine());
+						 System.out.println("INSERT THE QUANTITY OF THIS PRODUCT: ");
+						 cNumber = Integer.parseInt(sc.nextLine());
+						 for(int j =0;j<restaurantA.getRestaurants().get(index).getProducts().size();j++) {
+							 
+							 	if(restaurantA.getRestaurants().get(index).getProducts().get(j).getCode() == code) {
+								System.out.println("YEESS");
+								
+								for(int k = 0;k<cNumber;k++) {
+									Product nproduct = new Product(code,restNit,restaurantA.getRestaurants().get(index).getProducts().get(0).getCost(),
+									restaurantA.getRestaurants().get(index).getProducts().get(0).getName(),restaurantA.getRestaurants().get(index).getProducts().get(0).getDescription());
+									products.add(nproduct);
+									count++;
+								}
+							 }
+							 
+						 }
+					 }
+					 if(count==0) {
+						 System.err.println("This restaurant dont have a product with this code");
+					 }
+					 else {
+						 
+						 restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).setProducts(products);
+						 System.out.println("Products with a correct code added correctly");
+						 restaurantA.saveRestaurants();
+					 }
+					 
+					 break;
+					 
+				 }
+				 
+			 }
+			 
+			 else {
+				 
+				 System.err.println("CODE DOESNT EXIST");
+			 }
 			break;
 		
 		
@@ -575,7 +690,7 @@ public class Menu {
 			
 			restaurantA.showRestaurants();
 			System.out.println("INSERT THE INDEX TO THE RESTAURANT TO IMPORT CLIENTS");
-			indexcl = Integer.parseInt(sc.nextLine());
+			indexcl = Integer.parseInt(sc.nextLine())-1;
 			try {
 				restaurantA.getRestaurants().get(indexcl).importClients(path, separator);
 			} catch(FileNotFoundException fne){
@@ -589,9 +704,10 @@ public class Menu {
 			
 			restaurantA.showRestaurants();
 			System.out.println("INSERT THE INDEX TO THE RESTAURANT TO IMPORT PRODUCTS");
-			indexcl = Integer.parseInt(sc.nextLine());
+			indexcl = Integer.parseInt(sc.nextLine())-1;
 			try {
 				restaurantA.getRestaurants().get(indexcl).importProducts(path, separator);
+				System.out.println("IMPORT SUCCESFULLY");
 			} catch(FileNotFoundException fne){
 				
 				System.err.println(fne.getStackTrace());
@@ -600,6 +716,20 @@ public class Menu {
 			break;
 			
 		case 4:
+			 restaurantA.showRestaurants();
+			 System.out.println("PUT THE INDEX OF THE RESTAURANT TO REGISTER A ORDER: ");
+			 index = Integer.parseInt(sc.nextLine())-1;
+			 restaurantA.getRestaurants().get(index).showClients();
+			 System.out.println("PUT THE INDEX OF THE CLIENT TO CHANGE STATE A ORDER: ");
+			 indexc = Integer.parseInt(sc.nextLine())-1;
+			 try {
+				 
+	restaurantA.getRestaurants().get(index).getClients().get(indexcl).importOrders(path,separator,restaurantA.getRestaurants().get(index).getNit(),restaurantA.getRestaurants().get(index),restaurantA.getRestaurants().get(index).getClients().get(indexcl).getIdentificationNumber());	 
+			 } catch(FileNotFoundException fne) {
+			   System.err.println(fne.getStackTrace());
+			 }
+			 restaurantA.saveRestaurants();
+			 
 			
 			break;
 			
@@ -617,11 +747,66 @@ public class Menu {
 		break;
 	
 	case SHOW:
+		System.out.println("1.SHOW RESTAURANTS  2.SHOW CLIENTS 3.EXIT");
+		option = Integer.parseInt(sc.nextLine());
+		while(option != 3) {
+		switch(option) {
 		
+		case 1:
+			RestaurantComparator rc = new RestaurantComparator();
+			Collections.sort(restaurantA.getRestaurants(),rc);
+			String resorder = "";
+			for(int i=0;i<restaurantA.getRestaurants().size();i++) {
+				
+			resorder += (i+1) + "." + restaurantA.getRestaurants().get(i).getNit() + "-" + restaurantA.getRestaurants().get(i).getName() + "-" + restaurantA.getRestaurants().get(i).getNameAdmin() + "\n";
+				
+			}
+			System.out.println(resorder);
+			break;
+		case 2:
+			System.out.println("Put the index of the restaurant to show the clients");
+			int indexR = Integer.parseInt(sc.nextLine())-1;
+			if(restaurantA.getRestaurants().get(indexR).getClients().size() != 0) {
+				
+			//BUBBLE SORT
+			for(int i=0;i<restaurantA.getRestaurants().get(indexR).getClients().size();i++){
+			      for(int j=0;j<restaurantA.getRestaurants().get(indexR).getClients().size()-1;j++){
+
+			if(restaurantA.getRestaurants().get(indexR).getClients().get(j).getPhone()<restaurantA.getRestaurants().get(indexR).getClients().get(j+1).getPhone()){
+			        Client temp = restaurantA.getRestaurants().get(indexR).getClients().get(j);
+			        restaurantA.getRestaurants().get(indexR).getClients().set(j, restaurantA.getRestaurants().get(indexR).getClients().get(j+1));
+			        restaurantA.getRestaurants().get(indexR).getClients().set(j+1, temp);
+			      }  
+
+			      }
+			      }
+			for(int i = 0;i<restaurantA.getRestaurants().get(indexR).getClients().size();i++) {
+				
+				System.out.println((i+1)+ "." + restaurantA.getRestaurants().get(indexR).getClients().get(i).getPhone() );
+			}
+			
+			Collections.sort(restaurantA.getRestaurants().get(indexR).getClients());
+			}
+			else {
+				
+				System.err.println("Llorela papi");
+			}
+			break;
+		case 3:
+			System.out.println("Exit...");
+			break;
+			default:
+				System.err.println("You choose an invalid option");
+				break;
+				
+			
+		}
 		break;
-	
+		}
 	case FIND_CLIENT:
-		
+		for(int i=0;i<restaurantA.getRestaurants().get(0).getClients().get(0).getOrders().size();i++) {
+			System.out.println(restaurantA.getRestaurants().get(0).getClients().get(0).getOrders().get(i).getCode());
+		}
 		break;
 		
 		default:
