@@ -5,7 +5,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.io.PrintWriter;
 
 /**
  * @author JuanP
@@ -276,6 +278,57 @@ public class Client implements Serializable,Comparable<Client> {
 				comp = firstName.compareTo(o.firstName);
 			}
 			return comp;
+		}
+		
+		public void sortOrder() {
+		//SELECTION SORT
+			for(int i=0;i<orders.size();i++){
+			      for(int j= i+1;j<orders.size();j++){
+			        if(orders.get(i).restaurantNit>orders.get(j).restaurantNit){
+			           Order temp = orders.get(i);
+			           orders.set(i, orders.get(j));
+			           orders.set(j, temp);
+			        }
+			      }
+			    }
+			
+		//BUBBLE SORT
+			for(int i=0;i<orders.size();i++){
+			      for(int j=0;j<orders.size()-1;j++){
+
+			      if(orders.get(j).clientCode<orders.get(j+1).clientCode){
+			        Order temp = orders.get(j);
+			        orders.set(j, orders.get(j+1));
+			        orders.set(j+1, temp);
+			      }  
+
+			      }
+			    }
+			Collections.sort(orders);
+			for(int i =0;i<orders.get(i).getProducts().size();i++) {
+				
+				Collections.sort(orders.get(i).getProducts());	
+			}
+			
+		}
+		
+		public void export(String filename, String separator) throws IOException{
+			sortOrder();
+			PrintWriter pw = new PrintWriter(filename);
+			String msg = "RESTAURANTNIT"+ separator + "CLIENTCODE" + separator + "DATE" + separator + "CODE PRODUCT";
+			pw.println(msg);
+			for(int i = 0; i<orders.size();i++) {
+				
+				for(int j=0;j<orders.get(i).getProducts().size();j++) {
+					
+		pw.println((i+1) + orders.get(i).getProducts().get(j).getRestaurantNit() + separator + orders.get(i).getClientCode() + separator + orders.get(i).date + separator + orders.get(i).getProducts().get(j).getCode()
+		);		
+				}
+				
+			}
+			
+			System.out.println("EXPORTED SUCCESFULY");
+			pw.close();
 		}
 	
 	

@@ -1,13 +1,11 @@
 package model;
 import java.util.ArrayList;
 
-import java.util.Scanner;
 import java.util.List;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.FileReader;

@@ -7,7 +7,7 @@ import java.io.Serializable;
  * Class Product
  * 
  */
-public class Product implements Serializable {
+public class Product implements Serializable, Comparable<Product> {
 	
 	/**
 	 * 
@@ -135,5 +135,19 @@ public class Product implements Serializable {
 		setCost(cost);
 		setName(name);
 		setDescription(description);
+	}
+
+	@Override
+	public int compareTo(Product p) {
+		int comp;
+		if(code<p.code) {
+			comp = -1;
+		}
+		else if(code>p.code) {
+			comp = 1;
+		} else {
+			comp = 0;
+		}
+		return comp;
 	}
 }

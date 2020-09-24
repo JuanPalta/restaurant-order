@@ -656,6 +656,7 @@ public class Menu {
 			 String state = sc.nextLine();
 			 restaurantA.getRestaurants().get(index).getClients().get(indexc).changeState(state, indexS);
 		 }
+		 restaurantA.saveRestaurants();
 		break;
 		
 	case SAVE:
@@ -677,7 +678,8 @@ public class Menu {
 			try {
 				
 				restaurantA.importRestaurants(path,separator);
-				System.out.println("Import succesfuly");
+				System.out.println("IMPORT SUCCESFULLY");
+				restaurantA.saveRestaurants();
 			} catch(FileNotFoundException fne) {
 			
 				System.err.println(fne.getStackTrace());
@@ -693,6 +695,9 @@ public class Menu {
 			indexcl = Integer.parseInt(sc.nextLine())-1;
 			try {
 				restaurantA.getRestaurants().get(indexcl).importClients(path, separator);
+				System.out.println("IMPORT SUCCESFULLY");
+				Collections.sort(restaurantA.getRestaurants().get(indexcl).getClients());
+				restaurantA.saveRestaurants();
 			} catch(FileNotFoundException fne){
 				
 				System.err.println(fne.getStackTrace());
@@ -708,6 +713,7 @@ public class Menu {
 			try {
 				restaurantA.getRestaurants().get(indexcl).importProducts(path, separator);
 				System.out.println("IMPORT SUCCESFULLY");
+				restaurantA.saveRestaurants();
 			} catch(FileNotFoundException fne){
 				
 				System.err.println(fne.getStackTrace());
@@ -724,7 +730,9 @@ public class Menu {
 			 indexc = Integer.parseInt(sc.nextLine())-1;
 			 try {
 				 
-	restaurantA.getRestaurants().get(index).getClients().get(indexcl).importOrders(path,separator,restaurantA.getRestaurants().get(index).getNit(),restaurantA.getRestaurants().get(index),restaurantA.getRestaurants().get(index).getClients().get(indexcl).getIdentificationNumber());	 
+	restaurantA.getRestaurants().get(index).getClients().get(indexcl).importOrders(path,separator,restaurantA.getRestaurants().get(index).getNit(),restaurantA.getRestaurants().get(index),restaurantA.getRestaurants().get(index).getClients().get(indexcl).getIdentificationNumber());
+	System.out.println("IMPORT SUCCESFULLY");
+	restaurantA.saveRestaurants();
 			 } catch(FileNotFoundException fne) {
 			   System.err.println(fne.getStackTrace());
 			 }
@@ -743,6 +751,18 @@ public class Menu {
 		break;
 	
 	case EXPORT:
+		
+		 restaurantA.showRestaurants();
+		 System.out.println("PUT THE INDEX OF THE RESTAURANT TO REGISTER A ORDER: ");
+		 index = Integer.parseInt(sc.nextLine())-1;
+		 restaurantA.getRestaurants().get(index).showClients();
+		 System.out.println("PUT THE INDEX OF THE CLIENT TO CHANGE STATE A ORDER: ");
+		 indexc = Integer.parseInt(sc.nextLine())-1;
+		 System.out.println("INSERT THE FILENAME");
+		 String filename= sc.nextLine();
+		 System.out.println("INSERT THE SEPARATOR");
+		 String separator2 = sc.nextLine();
+		 restaurantA.getRestaurants().get(index).getClients().get(indexc).export(filename,separator2);
 		
 		break;
 	
@@ -804,9 +824,35 @@ public class Menu {
 		break;
 		}
 	case FIND_CLIENT:
-		for(int i=0;i<restaurantA.getRestaurants().get(0).getClients().get(0).getOrders().size();i++) {
-			System.out.println(restaurantA.getRestaurants().get(0).getClients().get(0).getOrders().get(i).getCode());
-		}
+		 restaurantA.showRestaurants();
+		 System.out.println("PUT THE INDEX OF THE RESTAURANT TO FIND A CLIENT: ");
+		 index = Integer.parseInt(sc.nextLine())-1;
+		 System.out.println("INSERT THE NAME OF THE CLIENT");
+		 String name = sc.nextLine();
+		 System.out.println("INSERT THE LASTNAME OF THE CLIENT");
+		 String lastName = sc.nextLine();
+		 //BINARY SEARCH
+		 int start = 0;
+		 int end = restaurantA.getRestaurants().get(index).getClients().size()-1;
+		 int position = 0;
+		 boolean encontre = false;
+		 while(start <= end && !encontre) {
+			 position = (start+end)/2;
+			 
+			 if(restaurantA.getRestaurants().get(index).getClients().get(position).getFirstName().equalsIgnoreCase(name) && restaurantA.getRestaurants().get(index).getClients().get(position).getLastName().equalsIgnoreCase(lastName)) {
+				 
+				         System.out.println(restaurantA.getRestaurants().get(index).getClients().get(position).getIdentificationNumber() + " " + restaurantA.getRestaurants().get(index).getClients().get(position).getIdentificationType() + " " +
+						 restaurantA.getRestaurants().get(index).getClients().get(position).getFirstName() + " " + restaurantA.getRestaurants().get(index).getClients().get(position).getLastName() + " " +
+						 restaurantA.getRestaurants().get(index).getClients().get(position).getPhone()+ " " + restaurantA.getRestaurants().get(index).getClients().get(position).getAddres());
+				 		 encontre = true;
+			 } else if(restaurantA.getRestaurants().get(index).getClients().get(position).getFirstName().compareTo(name) < 0 && restaurantA.getRestaurants().get(index).getClients().get(position).getFirstName().compareTo(lastName) < 0 ) {
+				 end = position-1;
+			 } else {
+				 start = position+1;
+			 }
+			 
+		 }
+		 System.out.println(encontre);
 		break;
 		
 		default:

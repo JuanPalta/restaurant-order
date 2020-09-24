@@ -4,14 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * @author JuanP
  * 
  * Class Order
  * 
  */
-public class Order implements Serializable {
+public class Order implements Serializable,Comparable<Order> {
 	public static final long serialVersionUID = 1;
 	/** ATRIBUTES */
 	int code;
@@ -123,6 +122,12 @@ public class Order implements Serializable {
 		this.state = state;
 	}
 	
+	@Override
+	public int compareTo(Order o) {
+		int comp = date.compareTo(o.date);
+		return comp;
+	}
+	
 	/**
 	 * pre:
 	 * pos:
@@ -135,4 +140,6 @@ public class Order implements Serializable {
 	public void setProducts(List<Product> p){
 		products = p;
 	}
+
+	
 }
