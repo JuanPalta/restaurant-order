@@ -6,6 +6,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+
+import exceptions.ChangeStateException;
+import exceptions.IdentificationException;
+import exceptions.SearchException;
 public class Menu {
 
 	public final static int REGISTER = 1;
@@ -190,7 +194,12 @@ public class Menu {
 						 String namep = sc.nextLine();
 						 System.out.println("INSERT THE DESCRIPTION: ");
 						 String description = sc.nextLine();
-						 p.add(new Product(code,restaurantA.searchRestaurant(nitR).getNit(),cost,namep,description));
+						 try {
+							p.add(new Product(code,restaurantA.searchRestaurant(nitR).getNit(),cost,namep,description));
+						} catch (SearchException e) {
+							
+							e.printStackTrace();
+						}
 					 }
 					
 				 }
@@ -212,61 +221,123 @@ public class Menu {
 						 String lastName = sc.nextLine();
 						 System.out.println("INSERT THE ADDRES: ");
 						 String addres = sc.nextLine();
-						 c.add(new Client(identification,phone,type,firstName,lastName,addres));
+						 try {
+							c.add(new Client(identification,phone,type,firstName,lastName,addres));
+						} catch (IdentificationException e) {
+							
+							e.printStackTrace();
+						}
 					 }
 					 
 				 }
-				 if(restaurantA.searchRestaurant(nitR) != null	) {
-					restaurantA.searchRestaurant(nitR).updateAllData(nit, name, nameAdmin, p, c);
-					System.out.println("UPDATE SUCCESFULY");
-					restaurantA.saveRestaurants();
-				 } else {
-					 System.out.println("THE NIT DONT FOUND");
-					 
-				 }
+				 try {
+					if(restaurantA.searchRestaurant(nitR) != null	) {
+						try {
+							restaurantA.searchRestaurant(nitR).updateAllData(nit, name, nameAdmin, p, c);
+						} catch (SearchException e) {
+							
+							e.printStackTrace();
+						}
+						System.out.println("UPDATE SUCCESFULY");
+						restaurantA.saveRestaurants();
+					 } else {
+						 System.out.println("THE NIT DONT FOUND");
+						 
+					 }
+				} catch (ClassNotFoundException e1) {
+					
+					e1.printStackTrace();
+				} catch (SearchException e1) {
+					
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					
+					e1.printStackTrace();
+				}
 				
 				 
 				 break;
 				 
 			 case 2:
 				 
-				if(restaurantA.searchRestaurant(nitR) != null) {
-					 System.out.println("PUT THE NAME: ");
-					 name = sc.nextLine();
-					 restaurantA.searchRestaurant(nitR).setName(name);
-					 System.out.println("UPDATE SUCCESFULY");
-					 restaurantA.saveRestaurants();
+				try {
+					if(restaurantA.searchRestaurant(nitR) != null) {
+						 System.out.println("PUT THE NAME: ");
+						 name = sc.nextLine();
+						 restaurantA.searchRestaurant(nitR).setName(name);
+						 System.out.println("UPDATE SUCCESFULY");
+						 restaurantA.saveRestaurants();
+					}
+					 else {
+						 System.out.println("F BRO");
+					 }
+				} catch (ClassNotFoundException e1) {
+					
+					e1.printStackTrace();
+				} catch (SearchException e1) {
+					
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					
+					e1.printStackTrace();
 				}
-				 else {
-					 System.out.println("F BRO");
-				 }
 			break;
 			
 			 case 3:
-				 if(restaurantA.searchRestaurant(nitR) != null) {
-					 System.out.println("PUT THE ADMINNAME: ");
-					 name = sc.nextLine();
-					 restaurantA.searchRestaurant(nitR).setNameAdmin(name);
-					 System.out.println("UPDATE SUCCESFULY");
-					 restaurantA.saveRestaurants();
+				 try {
+					if(restaurantA.searchRestaurant(nitR) != null) {
+						 System.out.println("PUT THE ADMINNAME: ");
+						 name = sc.nextLine();
+						 restaurantA.searchRestaurant(nitR).setNameAdmin(name);
+						 System.out.println("UPDATE SUCCESFULY");
+						 restaurantA.saveRestaurants();
+					}
+					 else {
+						 System.out.println("F BRO");
+					 }
+				} catch (ClassNotFoundException e1) {
+					
+					e1.printStackTrace();
+				} catch (SearchException e1) {
+					
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					
+					e1.printStackTrace();
 				}
-				 else {
-					 System.out.println("F BRO");
-				 }
 		
 				 break;
 			 case 4:
 				 
-				 if(restaurantA.searchRestaurant(nitR) != null) {
-					 System.out.println("PUT THE NIT: ");
-					 int nitf = Integer.parseInt(sc.nextLine());
-					 restaurantA.searchRestaurant(nitR).setNit(nitf);
-					 System.out.println("UPDATE SUCCESFULY");
-					 restaurantA.saveRestaurants();
+				 try {
+					if(restaurantA.searchRestaurant(nitR) != null) {
+						 System.out.println("PUT THE NIT: ");
+						 int nitf = Integer.parseInt(sc.nextLine());
+						 try {
+							restaurantA.searchRestaurant(nitR).setNit(nitf);
+						} catch (SearchException e) {
+							
+							e.printStackTrace();
+						}
+						 System.out.println("UPDATE SUCCESFULY");
+						 restaurantA.saveRestaurants();
+					}
+					 else {
+						 System.out.println("F BRO");
+					 }
+				} catch (NumberFormatException e1) {
+					
+					e1.printStackTrace();
+				} catch (ClassNotFoundException e1) {
+					
+					e1.printStackTrace();
+				} catch (SearchException e1) {
+					
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					
+					e1.printStackTrace();
 				}
-				 else {
-					 System.out.println("F BRO");
-				 }
 				 break;
 			 case 5:
 				 opProduct = 0;
@@ -286,10 +357,16 @@ public class Menu {
 						 String namep = sc.nextLine();
 						 System.out.println("INSERT THE DESCRIPTION: ");
 						 String description = sc.nextLine();
-						 p.add(new Product(code,restaurantA.searchRestaurant(nitR).getNit(),cost,namep,description));
+						 try {
+							p.add(new Product(code,restaurantA.searchRestaurant(nitR).getNit(),cost,namep,description));
+						} catch (SearchException e) {
+							
+							e.printStackTrace();
+						}
 					 }
 				 }
-				 	if(restaurantA.searchRestaurant(nitR) != null	) {
+				try {
+					if(restaurantA.searchRestaurant(nitR) != null	) {
 						restaurantA.searchRestaurant(nitR).setProducts(p);
 						System.out.println("UPDATE SUCCESFULY");
 						restaurantA.saveRestaurants();
@@ -297,6 +374,16 @@ public class Menu {
 						 System.out.println("THE NIT DONT FOUND");
 						 
 					 }
+				} catch (ClassNotFoundException e1) {
+					
+					e1.printStackTrace();
+				} catch (SearchException e1) {
+					
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					
+					e1.printStackTrace();
+				}
 				 
 				 break;
 			 case 6:
@@ -320,18 +407,34 @@ public class Menu {
 						 String lastName = sc.nextLine();
 						 System.out.println("INSERT THE ADDRES: ");
 						 String addres = sc.nextLine();
-						 c.add(new Client(identification,phone,type,firstName,lastName,addres));
+						 try {
+							c.add(new Client(identification,phone,type,firstName,lastName,addres));
+						} catch (IdentificationException e) {
+							
+							e.printStackTrace();
+						}
 					 }
 					 
 				 }
-				 if(restaurantA.searchRestaurant(nitR) != null	) {
-					restaurantA.searchRestaurant(nitR).setClients(c);
-					System.out.println("UPDATE SUCCESFULY");
-					restaurantA.saveRestaurants();
-				 } else {
-					 System.out.println("THE NIT DONT FOUND");
-					 
-				 }
+				 try {
+					if(restaurantA.searchRestaurant(nitR) != null	) {
+						restaurantA.searchRestaurant(nitR).setClients(c);
+						System.out.println("UPDATE SUCCESFULY");
+						restaurantA.saveRestaurants();
+					 } else {
+						 System.out.println("THE NIT DONT FOUND");
+						 
+					 }
+				} catch (ClassNotFoundException e) {
+					
+					e.printStackTrace();
+				} catch (SearchException e) {
+					
+					e.printStackTrace();
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
 				 
 				 break;
 				 
@@ -351,84 +454,145 @@ public class Menu {
 			 switch(option2) {
 			 
 			 case 1:
-				 if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
-					 
-					 System.out.println("INSERT THE IDENTIFICATION NUMBER: ");
-					 int nin = Integer.parseInt(sc.nextLine());
-					 System.out.println("INSERT THE PHONE NUMBER: ");
-					 int phone = Integer.parseInt(sc.nextLine());
-					 System.out.println("INSERT THE IDENTIFICATION TYPE: TI/CC/CE/PP ");
-					 String type = sc.nextLine();
-					 System.out.println("INSERT THE FIRST NAME: ");
-					 String fname = sc.nextLine();
-					 System.out.println("INSERT THE LAST NAME: ");
-					 String lname = sc.nextLine();
-					 System.out.println("INSERT THE ADDRES: ");
-					 String addres = sc.nextLine();
-					 restaurantA.getRestaurants().get(index).SearchClient(in).updateAllData(nin,phone,type,fname,lname,addres);
-					 System.out.println("UPDATE SUCCESFULY");
-					 restaurantA.saveRestaurants();
-				 } else {
-					 
-					 System.err.println("DONT EXIST");
-				 }
+				 try {
+					if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
+						 
+						 System.out.println("INSERT THE IDENTIFICATION NUMBER: ");
+						 int nin = Integer.parseInt(sc.nextLine());
+						 System.out.println("INSERT THE PHONE NUMBER: ");
+						 int phone = Integer.parseInt(sc.nextLine());
+						 System.out.println("INSERT THE IDENTIFICATION TYPE: TI/CC/CE/PP ");
+						 String type = sc.nextLine();
+						 System.out.println("INSERT THE FIRST NAME: ");
+						 String fname = sc.nextLine();
+						 System.out.println("INSERT THE LAST NAME: ");
+						 String lname = sc.nextLine();
+						 System.out.println("INSERT THE ADDRES: ");
+						 String addres = sc.nextLine();
+						 restaurantA.getRestaurants().get(index).SearchClient(in).updateAllData(nin,phone,type,fname,lname,addres);
+						 System.out.println("UPDATE SUCCESFULY");
+						 restaurantA.saveRestaurants();
+					 } else {
+						 
+						 System.err.println("DONT EXIST");
+					 }
+				} catch (NumberFormatException e) {
+					
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					
+					e.printStackTrace();
+				} catch (SearchException e) {
+					
+					e.printStackTrace();
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
 				 ;
 				 
 				 break;
 				 
 			 case 2:
-				 if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
-					 System.out.println("INSERT THE FIRST NAME: ");
-					 String fname = sc.nextLine();
-					 System.out.println("INSERT THE LAST NAME: ");
-					 String lname = sc.nextLine();
-					 restaurantA.getRestaurants().get(index).SearchClient(in).setFirstName(fname);
-					 restaurantA.getRestaurants().get(index).SearchClient(in).setLastName(lname);
-					 System.out.println("UPDATE SUCCESFULY");
-					 restaurantA.saveRestaurants();
-				 }
-				 else {
-					 System.err.println("DONT EXIST");
-				 }
+				 try {
+					if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
+						 System.out.println("INSERT THE FIRST NAME: ");
+						 String fname = sc.nextLine();
+						 System.out.println("INSERT THE LAST NAME: ");
+						 String lname = sc.nextLine();
+						 restaurantA.getRestaurants().get(index).SearchClient(in).setFirstName(fname);
+						 restaurantA.getRestaurants().get(index).SearchClient(in).setLastName(lname);
+						 System.out.println("UPDATE SUCCESFULY");
+						 restaurantA.saveRestaurants();
+					 }
+					 else {
+						 System.err.println("DONT EXIST");
+					 }
+				} catch (ClassNotFoundException e) {
+					
+					e.printStackTrace();
+				} catch (SearchException e) {
+					
+					e.printStackTrace();
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
 				 break;
 				 
 			 case 3:
 				 
-				 if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
-					 System.out.println("INSERT THE IDENTIFICATION NUMBER ");
-					 int n = Integer.parseInt(sc.nextLine());
-					 restaurantA.getRestaurants().get(index).SearchClient(in).setIdentificationNumber(n);
-					 System.out.println("UPDATE SUCCESFULY");
-					 restaurantA.saveRestaurants();
-				 }
-				 else {
-					 System.err.println("DONT EXIST");
-				 }
+				 try {
+					if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
+						 System.out.println("INSERT THE IDENTIFICATION NUMBER ");
+						 int n = Integer.parseInt(sc.nextLine());
+						 restaurantA.getRestaurants().get(index).SearchClient(in).setIdentificationNumber(n);
+						 System.out.println("UPDATE SUCCESFULY");
+						 restaurantA.saveRestaurants();
+					 }
+					 else {
+						 System.err.println("DONT EXIST");
+					 }
+				} catch (NumberFormatException e) {
+					
+					e.printStackTrace();
+				} catch (ClassNotFoundException e) {
+					
+					e.printStackTrace();
+				} catch (SearchException e) {
+					
+					e.printStackTrace();
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
 				 break;
 				 
 			 case 4:
-				 if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
-					 System.out.println("INSERT THE IDENTIFICATION TYPE: TI/CC/CE/PP");
-					 String type = sc.nextLine();
-					 restaurantA.getRestaurants().get(index).SearchClient(in).setIdentificationType(type);
-					 System.out.println("UPDATE SUCCESFULY");
-					 restaurantA.saveRestaurants();
-				 }
-				 else {
-					 System.err.println("DONT EXIST");
-				 }
+				 try {
+					if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
+						 System.out.println("INSERT THE IDENTIFICATION TYPE: TI/CC/CE/PP");
+						 String type = sc.nextLine();
+						 restaurantA.getRestaurants().get(index).SearchClient(in).setIdentificationType(type);
+						 System.out.println("UPDATE SUCCESFULY");
+						 restaurantA.saveRestaurants();
+					 }
+					 else {
+						 System.err.println("DONT EXIST");
+					 }
+				} catch (ClassNotFoundException e) {
+					
+					e.printStackTrace();
+				} catch (SearchException e) {
+					
+					e.printStackTrace();
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
 				 break;
 			 case 5:
-				 if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
-					 System.out.println("INSERT THE ADDRES");
-					 String addres = sc.nextLine();
-					 restaurantA.getRestaurants().get(index).SearchClient(in).setAddres(addres);
-					 System.out.println("UPDATE SUCCESFULY");
-					 restaurantA.saveRestaurants();
-				 }
-				 else {
-					 System.err.println("DONT EXIST");
-				 }
+				 try {
+					if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
+						 System.out.println("INSERT THE ADDRES");
+						 String addres = sc.nextLine();
+						 restaurantA.getRestaurants().get(index).SearchClient(in).setAddres(addres);
+						 System.out.println("UPDATE SUCCESFULY");
+						 restaurantA.saveRestaurants();
+					 }
+					 else {
+						 System.err.println("DONT EXIST");
+					 }
+				} catch (ClassNotFoundException e) {
+					
+					e.printStackTrace();
+				} catch (SearchException e) {
+					
+					e.printStackTrace();
+				} catch (IOException e) {
+					
+					e.printStackTrace();
+				}
 				 break;
 			 }
 			break;
@@ -535,7 +699,13 @@ public class Menu {
 			 int inclient = Integer.parseInt(sc.nextLine())-1;
 			 System.out.println("INSERT THE CODE OF THE ORDER TO UPDATE");
 			 int codeu = Integer.parseInt(sc.nextLine());
-			 Order order = restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu);
+			 Order order = null;
+			try {
+				order = restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu);
+			} catch (SearchException e) {
+				
+				e.printStackTrace();
+			}
 			 if(order!= null) {
 				 System.out.println("CHOOSE AN OPTION : 1.ADD A PRODUCT  2.REMOVE A PRODUCT 3.OVERWRITE ALL PRODUCTS"); 
 				 int optionO = Integer.parseInt(sc.nextLine());
@@ -567,13 +737,23 @@ public class Menu {
 					 break;
 					 
 				 case 2:
-					 for(int i=0;i<restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().size();i++) {
-						 Product product = restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().get(i);
-						 System.out.println((i+1) + "." + product.getName() + " " + product.getDescription() + " " + product.getCode());
-					 }
+					 try {
+						for(int i=0;i<restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().size();i++) {
+							 Product product = restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().get(i);
+							 System.out.println((i+1) + "." + product.getName() + " " + product.getDescription() + " " + product.getCode());
+						 }
+					} catch (SearchException e) {
+						
+						e.printStackTrace();
+					}
 					 System.out.println("PUT THE INDEX OF THE PRODUCT TO REMOVE");
 					 int indexR = Integer.parseInt(sc.nextLine())-1;
-					 restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().remove(indexR);
+					 try {
+						restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().remove(indexR);
+					} catch (SearchException e) {
+						
+						e.printStackTrace();
+					}
 					 restaurantA.saveRestaurants();
 					 break;
 				 case 3:
@@ -612,7 +792,12 @@ public class Menu {
 					 }
 					 else {
 						 
-						 restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).setProducts(products);
+						 try {
+							restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).setProducts(products);
+						} catch (SearchException e) {
+							
+							e.printStackTrace();
+						}
 						 System.out.println("Products with a correct code added correctly");
 						 restaurantA.saveRestaurants();
 					 }
@@ -656,7 +841,12 @@ public class Menu {
 			 int indexS = Integer.parseInt(sc.nextLine())-1;
 			 System.out.println("PUT THE STATE - IN PROCESS OR SENT");
 			 String state = sc.nextLine();
-			 client.changeState(state, indexS);
+			 try {
+				client.changeState(state, indexS);
+			} catch (ChangeStateException e) {
+				
+				e.printStackTrace();
+			}
 		 }
 		 restaurantA.saveRestaurants();
 		break;
@@ -725,10 +915,10 @@ public class Menu {
 			
 		case 4:
 			 restaurantA.showRestaurants();
-			 System.out.println("PUT THE INDEX OF THE RESTAURANT TO REGISTER A ORDER: ");
+			 System.out.println("PUT THE INDEX OF THE RESTAURANT IMPORT A ORDER: ");
 			 index = Integer.parseInt(sc.nextLine())-1;
 			 restaurantA.getRestaurants().get(index).showClients();
-			 System.out.println("PUT THE INDEX OF THE CLIENT TO CHANGE STATE A ORDER: ");
+			 System.out.println("PUT THE INDEX OF THE CLIENT TO IMPORT A ORDER: ");
 			 client = restaurantA.getRestaurants().get(index).getClients().get(indexcl);
 			 Restaurant restaurant = restaurantA.getRestaurants().get(index);
 			 indexc = Integer.parseInt(sc.nextLine())-1;
@@ -757,10 +947,10 @@ public class Menu {
 	case EXPORT:
 		
 		 restaurantA.showRestaurants();
-		 System.out.println("PUT THE INDEX OF THE RESTAURANT TO REGISTER A ORDER: ");
+		 System.out.println("PUT THE INDEX OF THE RESTAURANT TO EXPORT ORDERS: ");
 		 index = Integer.parseInt(sc.nextLine())-1;
 		 restaurantA.getRestaurants().get(index).showClients();
-		 System.out.println("PUT THE INDEX OF THE CLIENT TO CHANGE STATE A ORDER: ");
+		 System.out.println("PUT THE INDEX OF THE CLIENT TO EXPORT ORDERS: ");
 		 indexc = Integer.parseInt(sc.nextLine())-1;
 		 System.out.println("INSERT THE FILENAME");
 		 String filename= sc.nextLine();
@@ -790,26 +980,27 @@ public class Menu {
 		case 2:
 			System.out.println("Put the index of the restaurant to show the clients");
 			int indexR = Integer.parseInt(sc.nextLine())-1;
-			if(restaurantA.getRestaurants().get(indexR).getClients().size() != 0) {
+			Restaurant restaurant = restaurantA.getRestaurants().get(indexR);
+			if(restaurant.getClients().size() != 0) {
 				
 			//BUBBLE SORT
-			for(int i=0;i<restaurantA.getRestaurants().get(indexR).getClients().size();i++){
-			      for(int j=0;j<restaurantA.getRestaurants().get(indexR).getClients().size()-1;j++){
+			for(int i=0;i<restaurant.getClients().size();i++){
+			      for(int j=0;j<restaurant.getClients().size()-1;j++){
 
-			if(restaurantA.getRestaurants().get(indexR).getClients().get(j).getPhone()<restaurantA.getRestaurants().get(indexR).getClients().get(j+1).getPhone()){
-			        Client temp = restaurantA.getRestaurants().get(indexR).getClients().get(j);
-			        restaurantA.getRestaurants().get(indexR).getClients().set(j, restaurantA.getRestaurants().get(indexR).getClients().get(j+1));
-			        restaurantA.getRestaurants().get(indexR).getClients().set(j+1, temp);
+			if(restaurant.getClients().get(j).getPhone()<restaurant.getClients().get(j+1).getPhone()){
+			        Client temp = restaurant.getClients().get(j);
+			        restaurant.getClients().set(j, restaurant.getClients().get(j+1));
+			        restaurant.getClients().set(j+1, temp);
 			      }  
 
 			      }
 			      }
-			for(int i = 0;i<restaurantA.getRestaurants().get(indexR).getClients().size();i++) {
+			for(int i = 0;i<restaurant.getClients().size();i++) {
 				
-				System.out.println((i+1)+ "." + restaurantA.getRestaurants().get(indexR).getClients().get(i).getPhone() );
+				System.out.println((i+1)+ "." + restaurant.getClients().get(i).toString());
 			}
 			
-			Collections.sort(restaurantA.getRestaurants().get(indexR).getClients());
+			Collections.sort(restaurant.getClients());
 			}
 			else {
 				
@@ -827,14 +1018,13 @@ public class Menu {
 		}
 		break;
 		}
+		break;
 	case FIND_CLIENT:
 		 restaurantA.showRestaurants();
 		 System.out.println("PUT THE INDEX OF THE RESTAURANT TO FIND A CLIENT: ");
 		 index = Integer.parseInt(sc.nextLine())-1;
-		 System.out.println("INSERT THE NAME OF THE CLIENT");
+		 System.out.println("INSERT THE FIRSTNAME OF THE CLIENT");
 		 String name = sc.nextLine();
-		 System.out.println("INSERT THE LASTNAME OF THE CLIENT");
-		 String lastName = sc.nextLine();
 		 //BINARY SEARCH
 		 int start = 0;
 		 int end = restaurantA.getRestaurants().get(index).getClients().size()-1;
@@ -843,18 +1033,20 @@ public class Menu {
 		 while(start <= end && !encontre) {
 			 position = (start+end)/2;
 			 client = restaurantA.getRestaurants().get(index).getClients().get(position);
-			 if(client.getFirstName().equalsIgnoreCase(name) && client.getLastName().equalsIgnoreCase(lastName)) {
+			 if(client.getFirstName().equalsIgnoreCase(name)) {
 				 
 				         System.out.println(client.toString());
 				 		 encontre = true;
-			 } else if(client.getFirstName().compareTo(name) < 0 && client.getFirstName().compareTo(lastName) < 0 ) {
+			 } else if(client.getFirstName().compareTo(name) > 0) {
 				 end = position-1;
 			 } else {
 				 start = position+1;
 			 }
 			 
 		 }
-		 System.out.println(encontre);
+		 if(encontre == false) {
+			 System.err.println("THE CLIENT WITH THIS NAME DOESNT EXIST");
+		 }
 		break;
 		
 		default:

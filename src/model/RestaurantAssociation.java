@@ -2,6 +2,9 @@ package model;
 import java.util.ArrayList;
 
 import java.util.List;
+
+import exceptions.SearchException;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.ObjectInputStream;
@@ -101,7 +104,7 @@ public class RestaurantAssociation {
 		}
 	}
 	
-	public Restaurant searchRestaurant(int nit) {
+	public Restaurant searchRestaurant(int nit) throws SearchException {
 		Restaurant r = null;
 		boolean exit = false;
 		for(int i=0;i<restaurants.size() && exit == false;i++) {
@@ -110,6 +113,9 @@ public class RestaurantAssociation {
 				r = restaurants.get(i);
 				exit = true;
 			}
+		}
+		if(exit == false) {
+			throw new SearchException();
 		}
 		return r;
 	}

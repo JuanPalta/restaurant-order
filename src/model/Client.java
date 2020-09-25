@@ -9,6 +9,10 @@ import java.util.Collections;
 import java.util.List;
 import java.io.PrintWriter;
 
+import exceptions.ChangeStateException;
+import exceptions.IdentificationException;
+import exceptions.SearchException;
+
 /**
  * @author JuanP
  * 
@@ -36,16 +40,20 @@ public class Client implements Serializable,Comparable<Client> {
 	 * @param name the name of the client
 	 * @param addres the addres of the client
 	 */
-	public Client(int identificationNumber, int phone, String identificationType, String firstName, String lastName, String addres) {
-
+	public Client(int identificationNumber, int phone, String identificationType, String firstName, String lastName, String addres) throws IdentificationException {
+		if(identificationType != "TI" || identificationType != "CE" || identificationType != "CC"  || identificationType != "PP" ) {
+			throw new IdentificationException();
+		}else {
+			
 		this.identificationNumber = identificationNumber;
 		this.phone = phone;
+		
 		this.identificationType = identificationType;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.addres = addres;
 		orders = new ArrayList<Order>();
-		
+		}
 	}
 	
 	/**
@@ -181,7 +189,7 @@ public class Client implements Serializable,Comparable<Client> {
 	 * @param state
 	 * @param index
 	 */
-	public void changeState(String state, int index) {
+	public void changeState(String state, int index) throws ChangeStateException {
 		if(orders.get(index).getState().equalsIgnoreCase("REQUESTED") && state.equalsIgnoreCase("IN PROCESS") || state.equalsIgnoreCase("SENT")) {
 			
 			orders.get(index).setState(state);
@@ -189,7 +197,7 @@ public class Client implements Serializable,Comparable<Client> {
 			orders.get(index).setState(state);
 		} else {
 			
-			System.err.println("You cant change in reverse");
+			throw new ChangeStateException();
 		}
 		
 	}
@@ -217,28 +225,44 @@ public class Client implements Serializable,Comparable<Client> {
 			 line.trim();
 			 ArrayList<Product> products = new ArrayList<>();
 			 String[] sp = line.split(separator);
-			 if(SearchOrder(Integer.parseInt(sp[0])) != null) {
-			 for(int i=0;i<r.getProducts().size();i++) {
-				 
-				 if(Integer.parseInt(sp[1]) == r.getProducts().get(i).getCode()) {
-					  
-				 SearchOrder(Integer.parseInt(sp[0])).getProducts().add(new Product(Integer.parseInt(sp[1]),restaurantNit,Integer.parseInt(sp[2]),sp[3],sp[4]));
-					 
-				 }
-			 }
-			 
-			 } 
-			 else {
-				 
+			 try {
+				if(SearchOrder(Integer.parseInt(sp[0])) != null) {
 				 for(int i=0;i<r.getProducts().size();i++) {
 					 
 					 if(Integer.parseInt(sp[1]) == r.getProducts().get(i).getCode()) {
-						 products.add(new Product(Integer.parseInt(sp[1]),restaurantNit,Integer.parseInt(sp[2]),sp[3],sp[4]));
-						 orders.add(new Order(Integer.parseInt(sp[0]),clientCode,restaurantNit,products)); 
+						  
+					 try {
+						SearchOrder(Integer.parseInt(sp[0])).getProducts().add(new Product(Integer.parseInt(sp[1]),restaurantNit,Integer.parseInt(sp[2]),sp[3],sp[4]));
+					} catch (NumberFormatException e) {
+						
+						e.printStackTrace();
+					} catch (SearchException e) {
+						
+						e.printStackTrace();
+					}
 						 
 					 }
-					 }
 				 }
+				 
+				 } 
+				 else {
+					 
+					 for(int i=0;i<r.getProducts().size();i++) {
+						 
+						 if(Integer.parseInt(sp[1]) == r.getProducts().get(i).getCode()) {
+							 products.add(new Product(Integer.parseInt(sp[1]),restaurantNit,Integer.parseInt(sp[2]),sp[3],sp[4]));
+							 orders.add(new Order(Integer.parseInt(sp[0]),clientCode,restaurantNit,products)); 
+							 
+						 }
+						 }
+					 }
+			} catch (NumberFormatException e) {
+				
+				e.printStackTrace();
+			} catch (SearchException e) {
+				
+				e.printStackTrace();
+			}
 				
 				 
 			 line = reader.readLine();
@@ -248,7 +272,7 @@ public class Client implements Serializable,Comparable<Client> {
 		 reader.close();
 	}
 	
-		public Order SearchOrder(int code) {
+		public Order SearchOrder(int code) throws SearchException {
 		Order o = null;
 		boolean exit = false;
 		for(int i=0;i<orders.size() && exit == false;i++) {
@@ -257,6 +281,9 @@ public class Client implements Serializable,Comparable<Client> {
 				o = orders.get(i);
 				exit = true;
 			}
+		}
+		if(exit==false) {
+			throw new SearchException();
 		}
 		return o;
 	}
@@ -273,9 +300,9 @@ public class Client implements Serializable,Comparable<Client> {
 
 		@Override
 		public int compareTo(Client o) {
-			int comp = lastName.compareTo(o.lastName);
+			int comp = firstName.compareTo(o.firstName);
 			if(comp == 0) {
-				comp = firstName.compareTo(o.firstName);
+				comp = lastName.compareTo(o.lastName);
 			}
 			return comp;
 		}

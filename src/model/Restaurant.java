@@ -1,6 +1,10 @@
 package model;
 
 import java.util.List;
+
+import exceptions.IdentificationException;
+import exceptions.SearchException;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -151,7 +155,13 @@ public class Restaurant implements Serializable{
 	}
 	
 	public void addClient(int n, int p, String t, String f, String l, String a) {
-		Client x = new Client(n,p,t,f,l,a);
+		Client x = null;
+		try {
+			x = new Client(n,p,t,f,l,a);
+		} catch (IdentificationException e) {
+			
+			e.printStackTrace();
+		}
 		if(clients.isEmpty()) {
 			clients.add(x);
 		} else {
@@ -197,7 +207,15 @@ public class Restaurant implements Serializable{
 		 while(line != null) {
 			 line.trim();
 			 String[] sp = line.split(separator);
-			 clients.add(new Client(Integer.parseInt(sp[0]),Integer.parseInt(sp[1]),sp[2],sp[3],sp[4],sp[5]));
+			 try {
+				clients.add(new Client(Integer.parseInt(sp[0]),Integer.parseInt(sp[1]),sp[2],sp[3],sp[4],sp[5]));
+			} catch (NumberFormatException e) {
+				
+				e.printStackTrace();
+			} catch (IdentificationException e) {
+				
+				e.printStackTrace();
+			}
 			 line = reader.readLine();
 			 
 		 }
@@ -224,7 +242,7 @@ public class Restaurant implements Serializable{
 		return n;
 	}
 		
-		public Client SearchClient(int number) {
+		public Client SearchClient(int number) throws SearchException {
 			Client c = null;
 			boolean exit = false;
 			for(int i=0;i<clients.size() && exit == false;i++) {
@@ -233,6 +251,9 @@ public class Restaurant implements Serializable{
 					c = clients.get(i);
 					exit = true;
 				}
+			}
+			if(exit == false) {
+				throw new SearchException();
 			}
 			return c;
 		}
