@@ -81,8 +81,9 @@ public class Menu {
 			 indexc = Integer.parseInt(sc.nextLine())-1;
 			 System.out.println("Insert how many different products you will add");
 			 int many = Integer.parseInt(sc.nextLine());
+			 Client client = restaurantA.getRestaurants().get(index).getClients().get(indexc);
 			 ArrayList<Product> products = new ArrayList<Product>();
-			 int clientcode = restaurantA.getRestaurants().get(index).getClients().get(indexc).getIdentificationNumber();
+			 int clientcode = client.getIdentificationNumber();
 			 int restNit = restaurantA.getRestaurants().get(index).getNit();
 			 int code = 0;
 			 int count=0;
@@ -113,7 +114,7 @@ public class Menu {
 			 }
 			 else {
 				 
-				 restaurantA.getRestaurants().get(index).getClients().get(indexc).addOrder(clientcode, restNit, products);
+				 client.addOrder(clientcode, restNit, products);
 				 System.out.println("Products with a correct code added correctly");
 				 restaurantA.saveRestaurants();
 			 }
@@ -527,14 +528,15 @@ public class Menu {
 			System.out.println("PUT THE INDEX OF THE RESTAURANT TO SEARCH A CLIENT: ");
 			 index = Integer.parseInt(sc.nextLine())-1;
 			 for(int i=0;i<restaurantA.getRestaurants().get(index).getClients().size();i++) {
-				 System.out.println((i+1) + "." + restaurantA.getRestaurants().get(index).getClients().get(i).getLastName() + " " +
-						 restaurantA.getRestaurants().get(index).getClients().get(i).getFirstName() + " " + restaurantA.getRestaurants().get(index).getClients().get(i).getIdentificationNumber());
+				 Client client = restaurantA.getRestaurants().get(index).getClients().get(i);
+				 System.out.println((i+1) + "." + client.getLastName() + " " +client.getFirstName() + " " + client.getIdentificationNumber());
 			 }
 			 System.out.println("INSERT THE INDEX THE CLIENT TO UPDATE A ORDER");
 			 int inclient = Integer.parseInt(sc.nextLine())-1;
 			 System.out.println("INSERT THE CODE OF THE ORDER TO UPDATE");
 			 int codeu = Integer.parseInt(sc.nextLine());
-			 if(restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu) != null) {
+			 Order order = restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu);
+			 if(order!= null) {
 				 System.out.println("CHOOSE AN OPTION : 1.ADD A PRODUCT  2.REMOVE A PRODUCT 3.OVERWRITE ALL PRODUCTS"); 
 				 int optionO = Integer.parseInt(sc.nextLine());
 				 switch(optionO) {
@@ -549,7 +551,7 @@ public class Menu {
 						if(restaurantA.getRestaurants().get(index).getProducts().get(i).getCode() == code) {
 						count++;
 						for(int j = 0;j<many;j++) {
-							restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().add(restaurantA.getRestaurants().get(index).getProducts().get(i)); 
+							order.getProducts().add(restaurantA.getRestaurants().get(index).getProducts().get(i)); 
 							 }
 						
 						 }
@@ -566,10 +568,8 @@ public class Menu {
 					 
 				 case 2:
 					 for(int i=0;i<restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().size();i++) {
-						 
-						 System.out.println((i+1) + "." + restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().get(i).getName() + " " +
-								 restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().get(i).getDescription() + " " +
-								 restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().get(i).getCode());
+						 Product product = restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().get(i);
+						 System.out.println((i+1) + "." + product.getName() + " " + product.getDescription() + " " + product.getCode());
 					 }
 					 System.out.println("PUT THE INDEX OF THE PRODUCT TO REMOVE");
 					 int indexR = Integer.parseInt(sc.nextLine())-1;
@@ -591,14 +591,15 @@ public class Menu {
 						 code = Integer.parseInt(sc.nextLine());
 						 System.out.println("INSERT THE QUANTITY OF THIS PRODUCT: ");
 						 cNumber = Integer.parseInt(sc.nextLine());
-						 for(int j =0;j<restaurantA.getRestaurants().get(index).getProducts().size();j++) {
+						 Restaurant restaurant = restaurantA.getRestaurants().get(index);
+						 for(int j =0;j<restaurant.getProducts().size();j++) {
 							 
-							 	if(restaurantA.getRestaurants().get(index).getProducts().get(j).getCode() == code) {
+							 	if(restaurant.getProducts().get(j).getCode() == code) {
 								System.out.println("YEESS");
 								
 								for(int k = 0;k<cNumber;k++) {
-									Product nproduct = new Product(code,restNit,restaurantA.getRestaurants().get(index).getProducts().get(0).getCost(),
-									restaurantA.getRestaurants().get(index).getProducts().get(0).getName(),restaurantA.getRestaurants().get(index).getProducts().get(0).getDescription());
+									Product nproduct = new Product(code,restNit,restaurant.getProducts().get(0).getCost(),
+									restaurant.getProducts().get(0).getName(),restaurant.getProducts().get(0).getDescription());
 									products.add(nproduct);
 									count++;
 								}
@@ -641,20 +642,21 @@ public class Menu {
 		 restaurantA.getRestaurants().get(index).showClients();
 		 System.out.println("PUT THE INDEX OF THE CLIENT TO CHANGE STATE A ORDER: ");
 		 indexc = Integer.parseInt(sc.nextLine())-1;
-		 restaurantA.getRestaurants().get(index).getClients().get(indexc).showOrders();
+		 Client client = restaurantA.getRestaurants().get(index).getClients().get(indexc);
+		 client.showOrders();
 		 int count = 0;
-		 for(int i = 0;i<restaurantA.getRestaurants().get(index).getClients().get(indexc).getOrders().size();i++) {
-			if(restaurantA.getRestaurants().get(index).getClients().get(indexc).getOrders().get(i).getRestaurantNit() == restaurantA.getRestaurants().get(index).getNit()) {
+		 for(int i = 0;i<client.getOrders().size();i++) {
+			if(client.getOrders().get(i).getRestaurantNit() == restaurantA.getRestaurants().get(index).getNit()) {
 				count++;
 				}
 			
 		 }
-		 if(count == restaurantA.getRestaurants().get(index).getClients().get(indexc).getOrders().size() ) {
+		 if(count == client.getOrders().size() ) {
 			 System.out.println("PUT THE INDEX OF THE ORDER TO CHANGE THE STATE");
 			 int indexS = Integer.parseInt(sc.nextLine())-1;
 			 System.out.println("PUT THE STATE - IN PROCESS OR SENT");
 			 String state = sc.nextLine();
-			 restaurantA.getRestaurants().get(index).getClients().get(indexc).changeState(state, indexS);
+			 client.changeState(state, indexS);
 		 }
 		 restaurantA.saveRestaurants();
 		break;
@@ -727,10 +729,12 @@ public class Menu {
 			 index = Integer.parseInt(sc.nextLine())-1;
 			 restaurantA.getRestaurants().get(index).showClients();
 			 System.out.println("PUT THE INDEX OF THE CLIENT TO CHANGE STATE A ORDER: ");
+			 client = restaurantA.getRestaurants().get(index).getClients().get(indexcl);
+			 Restaurant restaurant = restaurantA.getRestaurants().get(index);
 			 indexc = Integer.parseInt(sc.nextLine())-1;
 			 try {
 				 
-	restaurantA.getRestaurants().get(index).getClients().get(indexcl).importOrders(path,separator,restaurantA.getRestaurants().get(index).getNit(),restaurantA.getRestaurants().get(index),restaurantA.getRestaurants().get(index).getClients().get(indexcl).getIdentificationNumber());
+	client.importOrders(path,separator,restaurant.getNit(),restaurant,client.getIdentificationNumber());
 	System.out.println("IMPORT SUCCESFULLY");
 	restaurantA.saveRestaurants();
 			 } catch(FileNotFoundException fne) {
@@ -777,8 +781,8 @@ public class Menu {
 			Collections.sort(restaurantA.getRestaurants(),rc);
 			String resorder = "";
 			for(int i=0;i<restaurantA.getRestaurants().size();i++) {
-				
-			resorder += (i+1) + "." + restaurantA.getRestaurants().get(i).getNit() + "-" + restaurantA.getRestaurants().get(i).getName() + "-" + restaurantA.getRestaurants().get(i).getNameAdmin() + "\n";
+			Restaurant restaurant =	restaurantA.getRestaurants().get(i);
+			resorder += (i+1) + "." + restaurant.getNit() + "-" + restaurant.getName() + "-" + restaurant.getNameAdmin() + "\n";
 				
 			}
 			System.out.println(resorder);
@@ -838,14 +842,12 @@ public class Menu {
 		 boolean encontre = false;
 		 while(start <= end && !encontre) {
 			 position = (start+end)/2;
-			 
-			 if(restaurantA.getRestaurants().get(index).getClients().get(position).getFirstName().equalsIgnoreCase(name) && restaurantA.getRestaurants().get(index).getClients().get(position).getLastName().equalsIgnoreCase(lastName)) {
+			 client = restaurantA.getRestaurants().get(index).getClients().get(position);
+			 if(client.getFirstName().equalsIgnoreCase(name) && client.getLastName().equalsIgnoreCase(lastName)) {
 				 
-				         System.out.println(restaurantA.getRestaurants().get(index).getClients().get(position).getIdentificationNumber() + " " + restaurantA.getRestaurants().get(index).getClients().get(position).getIdentificationType() + " " +
-						 restaurantA.getRestaurants().get(index).getClients().get(position).getFirstName() + " " + restaurantA.getRestaurants().get(index).getClients().get(position).getLastName() + " " +
-						 restaurantA.getRestaurants().get(index).getClients().get(position).getPhone()+ " " + restaurantA.getRestaurants().get(index).getClients().get(position).getAddres());
+				         System.out.println(client.toString());
 				 		 encontre = true;
-			 } else if(restaurantA.getRestaurants().get(index).getClients().get(position).getFirstName().compareTo(name) < 0 && restaurantA.getRestaurants().get(index).getClients().get(position).getFirstName().compareTo(lastName) < 0 ) {
+			 } else if(client.getFirstName().compareTo(name) < 0 && client.getFirstName().compareTo(lastName) < 0 ) {
 				 end = position-1;
 			 } else {
 				 start = position+1;

@@ -330,6 +330,12 @@ public class Client implements Serializable,Comparable<Client> {
 			System.out.println("EXPORTED SUCCESFULY");
 			pw.close();
 		}
+		
+		public String toString() {
+			String info = "";
+			info += identificationNumber + " " + phone + " " + identificationType + " " + firstName + " " + lastName + " " + addres;
+			return info;
+		}
 	
 	
 
