@@ -26,9 +26,11 @@ public class RestaurantAssociation {
 	private List<Restaurant> restaurants;
 	/**
 	 * Constructor of class RestaurantAssociation
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
-	 * @throws ClassNotFoundException 
+	 * pre:
+	 * pos: create a RestaurantAssociation instance
+	 * @throws IOException IOException
+	 * @throws FileNotFoundException FileNotFoundException 
+	 * @throws ClassNotFoundException ClassNotFoundException
 	 */
 	public RestaurantAssociation() throws FileNotFoundException, IOException, ClassNotFoundException {
 		File file = new File(RESTAURANT_LIST);
@@ -47,18 +49,24 @@ public class RestaurantAssociation {
 	}
 	
 	/**
-	 * 
-	 * @return List<Restaurant>
+	 * get Restaurants
+	 * pre:
+	 * pos: get the list of the restaurants
+	 * @return the list of restaurants
 	 */
 	public List<Restaurant> getRestaurants(){
 		return restaurants;
 	}
 	
 	/**
+	 * Register a restaurant
 	 * pre:
-	 * pos:
-	 * @throws IOException 
-	 * @throws ClassNotFoundException 
+	 * pos: register succesfuly a restaurant
+	 * @throws IOException IOException
+	 * @throws ClassNotFoundException ClassNotFoundException
+	 * @param nit the nit
+	 * @param name the name
+	 * @param nameAdmin the nameAdmin
 	 * 
 	 */
 	public  void registerRestaurant(int nit, String name, String nameAdmin) throws ClassNotFoundException, IOException {
@@ -68,9 +76,11 @@ public class RestaurantAssociation {
 	}
 	
 	/**
-	 * 
-	 * @throws IOException
-	 * @throws ClassNotFoundException
+	 * Save the restaurants
+	 * pre:
+	 * pos: save all the restaurants
+	 * @throws IOException IOException
+	 * @throws ClassNotFoundException ClassNotFoundException
 	 */
 	public void saveRestaurants() throws IOException,ClassNotFoundException{
 		 
@@ -79,7 +89,16 @@ public class RestaurantAssociation {
 		 oos.close();
 	 
  }
-	
+	/**
+	 * Import the restaurants
+	 * pre: the filename need exists
+	 * pos: import the restaurants
+	 * @param filename the filename
+	 * @param separator the separator
+	 * @throws IOException IOException
+	 * @throws ClassNotFoundException ClassNotFoundException
+	 * @throws FileNotFoundException FileNotFoundException
+	 */
 	public void importRestaurants(String filename,String separator) throws IOException,ClassNotFoundException,FileNotFoundException{
 			 BufferedReader reader = new BufferedReader(new FileReader(filename));
 			 String line = reader.readLine();
@@ -96,6 +115,11 @@ public class RestaurantAssociation {
 			 reader.close();
 	}
 	
+	/**
+	 * Show the restaurants
+	 * pre:
+	 * pos : show the restaurants
+	 */
 	public void showRestaurants() {
 		
 		for(int i = 0; i<restaurants.size();i++) {
@@ -104,6 +128,14 @@ public class RestaurantAssociation {
 		}
 	}
 	
+	/**
+	 * Searh the restaurant
+	 * pre:
+	 * pos: return null if the restaurant doesnt exist, retur the restaurant if this exists
+	 * @param nit the nit
+	 * @return Restaurant r
+	 * @throws SearchException the Restaurant doesnt exists
+	 */
 	public Restaurant searchRestaurant(int nit) throws SearchException {
 		Restaurant r = null;
 		boolean exit = false;

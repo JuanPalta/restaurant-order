@@ -41,17 +41,19 @@ public class Product implements Serializable, Comparable<Product> {
 	}
 	
 	/**
+	 * set the code
 	 * pre:
-	 * pos:
-	 * @param code
+	 * pos: set the code
+	 * @param code the code
 	 */
 	public void setCode(int code) {
 		this.code =code;
 	}
 	
 	/**
+	 * get the code
 	 * pre:
-	 * pos:
+	 * pos: get the code
 	 * @return int code
 	 */
 	public int getCode() {
@@ -59,17 +61,19 @@ public class Product implements Serializable, Comparable<Product> {
 	}
 	
 	/**
+	 * set restaurant Nit
 	 * pre:
-	 * pos:
-	 * @param restaurantNit
+	 * pos: set the restaurant nit
+	 * @param restaurantNit the restaurant nit
 	 */
 	public void setRestaurantNit(int restaurantNit) {
 		this.restaurantNit = restaurantNit;
 	}
 	
 	/**
+	 * get restaurant nit
 	 * pre:
-	 * pos:
+	 * pos: get the restaurant nit
 	 * @return int restaurantNit
 	 */
 	public int getRestaurantNit() {
@@ -77,17 +81,19 @@ public class Product implements Serializable, Comparable<Product> {
 	}
 	
 	/**
+	 * set the cost
 	 * pre:
-	 * pos:
-	 * @param cost
+	 * pos: set the cost
+	 * @param cost the cost
 	 */
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
 	
 	/**
+	 * get the cost
 	 * pre:
-	 * pos:
+	 * pos: get the cost
 	 * @return int cost
 	 */
 	public int getCost() {
@@ -95,17 +101,19 @@ public class Product implements Serializable, Comparable<Product> {
 	}
 	
 	/**
+	 * set the name
 	 * pre:
-	 * pos:
-	 * @param name
+	 * pos: set the name
+	 * @param name the name
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
 	/**
+	 * get the name
 	 * pre:
-	 * pos:
+	 * pos: get the name
 	 * @return String name
 	 */
 	public String getName() {
@@ -113,23 +121,34 @@ public class Product implements Serializable, Comparable<Product> {
 	}
 	
 	/**
+	 * set the description
 	 * pre:
-	 * pos:
-	 * @param description
+	 * pos: set the description
+	 * @param description the description
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 	
 	/**
+	 * get the description
 	 * pre:
-	 * pos:
+	 * pos: get the description
 	 * @return String description
 	 */
 	public String getDescription() {
 		return description;
 	}
 	
+	/**
+	 * update All data
+	 * pre:
+	 * pos: update all data of the product
+	 * @param code the code
+	 * @param cost the cost
+	 * @param name the name
+	 * @param description the description
+	 */
 	public void updateAllData(int code,int cost,String name,String description){
 		setCode(code);
 		setCost(cost);

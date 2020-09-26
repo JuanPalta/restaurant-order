@@ -839,7 +839,7 @@ public class Menu {
 		 if(count == client.getOrders().size() ) {
 			 System.out.println("PUT THE INDEX OF THE ORDER TO CHANGE THE STATE");
 			 int indexS = Integer.parseInt(sc.nextLine())-1;
-			 System.out.println("PUT THE STATE - IN PROCESS OR SENT");
+			 System.out.println("PUT THE STATE - IN PROCESS|SHIPPED|DELIVERED");
 			 String state = sc.nextLine();
 			 try {
 				client.changeState(state, indexS);
@@ -983,7 +983,7 @@ public class Menu {
 			Restaurant restaurant = restaurantA.getRestaurants().get(indexR);
 			if(restaurant.getClients().size() != 0) {
 				
-			//BUBBLE SORT
+			/**BUBBLE SORT*/
 			for(int i=0;i<restaurant.getClients().size();i++){
 			      for(int j=0;j<restaurant.getClients().size()-1;j++){
 
@@ -1023,17 +1023,18 @@ public class Menu {
 		 restaurantA.showRestaurants();
 		 System.out.println("PUT THE INDEX OF THE RESTAURANT TO FIND A CLIENT: ");
 		 index = Integer.parseInt(sc.nextLine())-1;
-		 System.out.println("INSERT THE FIRSTNAME OF THE CLIENT");
+		 System.out.println("INSERT THE FIRSTNAME OF THE CLIENT // REMEMBER PUT THE FIRST LETTER IN MAYUS");
 		 String name = sc.nextLine();
-		 //BINARY SEARCH
+		 /**BINARY SEARCH*/
 		 int start = 0;
 		 int end = restaurantA.getRestaurants().get(index).getClients().size()-1;
 		 int position = 0;
 		 boolean encontre = false;
+		 long startCount = System.currentTimeMillis();
 		 while(start <= end && !encontre) {
 			 position = (start+end)/2;
 			 client = restaurantA.getRestaurants().get(index).getClients().get(position);
-			 if(client.getFirstName().equalsIgnoreCase(name)) {
+			 if((client.getFirstName()).equalsIgnoreCase(name)) {
 				 
 				         System.out.println(client.toString());
 				 		 encontre = true;
@@ -1044,9 +1045,14 @@ public class Menu {
 			 }
 			 
 		 }
+		 long endCount = System.currentTimeMillis();
 		 if(encontre == false) {
 			 System.err.println("THE CLIENT WITH THIS NAME DOESNT EXIST");
 		 }
+		 System.out.println("TIME OF THE SEARCH: ");
+		 System.out.println("Start:"+startCount);
+		 System.out.println("End:"+endCount);
+		 System.out.println("End-Start:"+(endCount-startCount));
 		break;
 		
 		default:

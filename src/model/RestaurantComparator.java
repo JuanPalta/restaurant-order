@@ -1,5 +1,10 @@
 package model;
 import java.util.Comparator;
+/**
+ * The Comparator of restaurants
+ * @author JuanP
+ *
+ */
 public class RestaurantComparator implements Comparator<Restaurant> {
 	
 	@Override

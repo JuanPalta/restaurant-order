@@ -24,7 +24,6 @@ public class Order implements Serializable,Comparable<Order> {
 	 * Constructor of order class
 	 * pre:
 	 * pos: build a order instance
-	 * @param code the code of the order
 	 * @param clientCode the identification number of the client make the order
 	 * @param restaurantNit the nit of the restaurant where buy the products
 	 * @param products the list of products
@@ -39,7 +38,15 @@ public class Order implements Serializable,Comparable<Order> {
 		date = new Date().toString();
 		
 	}
-	
+	/**
+	 * Constructor of order class
+	 * pre:
+	 * pos: build a order instance
+	 * @param code the code of the order
+	 * @param clientCode the identification number of the client make the order
+	 * @param restaurantNit the nit of the restaurant where buy the products
+	 * @param products the list of products
+	 */
 		public Order(int code, int clientCode,int restaurantNit, List<Product> products) {
 		
 		this.code = code;
@@ -52,17 +59,19 @@ public class Order implements Serializable,Comparable<Order> {
 	}
 	
 	/**
+	 * set the code
 	 * pre:
-	 * pos:
-	 * @param code
+	 * pos: set the code
+	 * @param code the code
 	 */
 	public void setCode(int code) {
 		this.code = code;
 	}
 	
 	/**
+	 * get the code
 	 * pre:
-	 * pos:
+	 * pos: get the code
 	 * @return int code
 	 */
 	public int getCode() {
@@ -70,17 +79,19 @@ public class Order implements Serializable,Comparable<Order> {
 	}
 	
 	/**
+	 * set the client code
 	 * pre:
-	 * pos:
-	 * @param clientCode
+	 * pos: set the client code
+	 * @param clientCode the client code
 	 */
 	public void setClientCode(int clientCode) {
 		this.clientCode = clientCode;
 	}
 	
 	/**
+	 * get the client code
 	 * pre:
-	 * pos:
+	 * pos:get the client code
 	 * @return int clientCode
 	 */
 	public int getClientCode() {
@@ -88,17 +99,19 @@ public class Order implements Serializable,Comparable<Order> {
 	}
 	
 	/**
+	 * set the restaurant nit
 	 * pre:
-	 * pos:
-	 * @param restaurantNit
+	 * pos: set the restaurant nit
+	 * @param restaurantNit the restaurant nit
 	 */
 	public void setRestaurantNit(int restaurantNit) {
 		this.restaurantNit = restaurantNit;
 	}
 	
 	/**
+	 * get the restaurant nit
 	 * pre:
-	 * pos:
+	 * pos: get the restaurant nit
 	 * @return int restaurantNit
 	 */
 	public int getRestaurantNit() {
@@ -106,18 +119,32 @@ public class Order implements Serializable,Comparable<Order> {
 	}
 	
 	/**
+	 * get the date
 	 * pre:
-	 * pos:
+	 * pos: get the date
 	 * @return Date date
 	 */
 	public String getDate() {
 		return date;
 	}
 	
+	/**
+	 * get the state
+	 * pre:
+	 * pos: get the state
+	 * @return State state
+	 * 
+	 */
 	public String getState() {
 		return state;
 	}
 	
+	/**
+	 * set the state
+	 * pre:
+	 * pos: set the state
+	 * @param state the state
+	 */
 	public void setState(String state) {
 		this.state = state;
 	}
@@ -129,14 +156,21 @@ public class Order implements Serializable,Comparable<Order> {
 	}
 	
 	/**
+	 * get the products of the order
 	 * pre:
-	 * pos:
-	 * @return List<Product> products
+	 * pos: get the products of the order
+	 * @return list of products
 	 */
 	public List<Product> getProducts(){
 		return products;
 	}
 	
+	/**
+	 * set the products
+	 * pre:
+	 * pos: set the products
+	 * @param p the list of products
+	 */
 	public void setProducts(List<Product> p){
 		products = p;
 	}

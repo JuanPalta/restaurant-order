@@ -46,9 +46,10 @@ public class Restaurant implements Serializable{
 	}
 	
 	/**
+	 * set the nit
 	 * pre:
 	 * pos: change the nit
-	 * @param nit
+	 * @param nit the nit
 	 */
 	public void setNit(int nit) {
 		
@@ -56,8 +57,9 @@ public class Restaurant implements Serializable{
 	}
 	
 	/**
+	 * get the nit
 	 * pre:
-	 * pos:
+	 * pos: get the nit
 	 * @return int nit
 	 */
 	public int getNit() {
@@ -65,9 +67,10 @@ public class Restaurant implements Serializable{
 	}
 	
 	/**
+	 * set the name
 	 * pre:
-	 * pos:
-	 * @param name
+	 * pos: set the name
+	 * @param name the name
 	 */
 	public void setName(String name) {
 		
@@ -75,8 +78,9 @@ public class Restaurant implements Serializable{
 	}
 	
 	/**
+	 * get the name
 	 * pre:
-	 * pos:
+	 * pos: get the name
 	 * @return String name
 	 */
 	public String getName() {
@@ -84,17 +88,19 @@ public class Restaurant implements Serializable{
 	}
 	
 	/**
+	 * set the nameAdmin
 	 * pre:
-	 * pos:
-	 * @param nameAdmin
+	 * pos: set the nameAdmin
+	 * @param nameAdmin the name admin
 	 */
 	public void setNameAdmin(String nameAdmin) {
 		this.nameAdmin = nameAdmin;
 	}
 	
 	/**
+	 * get the nameAdmin
 	 * pre:
-	 * pos:
+	 * pos: get the nameAdmin
 	 * @return String nameAdmin
 	 */
 	public String getNameAdmin() {
@@ -102,38 +108,53 @@ public class Restaurant implements Serializable{
 	}
 	
 	/**
+	 * get the products
 	 * pre:
-	 * pos:
-	 * @return List<Product> products
+	 * pos: get the products
+	 * @return the list of products
 	 */
 	public List<Product> getProducts(){
 		return products;
 	}
 	
 	/**
-	 * 
-	 * @param products
+	 * set the products
+	 * pre:
+	 * pos: set the products
+	 * @param products the list of the products
 	 */
 	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
 	
 	/**
+	 * get the clients
 	 * pre:
-	 * pos:
-	 * @return List<Client> products
+	 * pos: get the clients
+	 * @return the list of clients
 	 */
 	public List<Client> getClients(){
 		return clients;
 	}
 	
+	/**
+	 * set the clients
+	 * pre:
+	 * pos: set the clients
+	 * @param clients the list of the clients
+	 */
 	public void setClients(List<Client>clients) {
 		this.clients = clients;
 	}
 	
 	/**
-	 * 
-	 * @param product
+	 * add a product
+	 * pre:
+	 * pos: add a new product
+	 * @param code the code of the product
+	 * @param cost the cost of the product
+	 * @param name the name of the product
+	 * @param description the description of the product
 	 */
 	public void addProduct(int code,int cost,String name, String description) {
 		int count = 0;
@@ -154,6 +175,17 @@ public class Restaurant implements Serializable{
 		
 	}
 	
+	/**
+	 * add a client
+	 * pre:
+	 * pos: add a new client
+	 * @param n the identification number of the client
+	 * @param p the phone of the client
+	 * @param t the identification type of the client
+	 * @param f the first name of the client
+	 * @param l the last name of the client
+	 * @param a the addres of the client
+	 */
 	public void addClient(int n, int p, String t, String f, String l, String a) {
 		Client x = null;
 		try {
@@ -185,6 +217,16 @@ public class Restaurant implements Serializable{
 		System.out.println("Client was registered correctly ");
 	}
 	
+	/**
+	 * Import products
+	 * pre: the file need exists
+	 * pos: import products from a file
+	 * @param filename the filename
+	 * @param separator the separator
+	 * @throws IOException IOException
+	 * @throws ClassNotFoundException ClassNotFoundException
+	 * @throws FileNotFoundException FileNotFoundException
+	 */
 	public void importProducts(String filename,String separator) throws IOException,ClassNotFoundException,FileNotFoundException{
 		 BufferedReader reader = new BufferedReader(new FileReader(filename));
 		 String line = reader.readLine();
@@ -199,6 +241,16 @@ public class Restaurant implements Serializable{
 		 }
 		 reader.close();
 }
+	/**
+	 * Import clients
+	 * pre: the file need exists
+	 * pos: import clients from a file
+	 * @param filename the filename
+	 * @param separator the separator
+	 * @throws IOException IOException
+	 * @throws ClassNotFoundException ClassNotFoundException
+	 * @throws FileNotFoundException FileNotFoundException
+	 */
 	public void importClients(String filename,String separator) throws IOException,ClassNotFoundException,FileNotFoundException{
 		 BufferedReader reader = new BufferedReader(new FileReader(filename));
 		 String line = reader.readLine();
@@ -221,6 +273,11 @@ public class Restaurant implements Serializable{
 		 }
 		 reader.close();
 }
+	/**
+	 * Show clients
+	 * pre:
+	 * pos: show the clients in the restaurant
+	 */
 	public void showClients() {
 		for(int i = 0; i<clients.size();i++) {
 		 	
@@ -228,7 +285,13 @@ public class Restaurant implements Serializable{
 			 clients.get(i).getFirstName() + " " + clients.get(i).getIdentificationNumber());
 		 }
 	}
-	
+		/**
+		 * Search a product
+		 * pre: 
+		 * pos: return the product search or null if this not exists
+		 * @param code the code of the product
+		 * @return Product n
+		 */
 		public Product SearchProduct(int code) {
 		Product n = null;
 		boolean exit = false;
@@ -241,7 +304,14 @@ public class Restaurant implements Serializable{
 		}
 		return n;
 	}
-		
+		/**
+		 * Search a client
+		 * pre:
+		 * pos:return the client search or null if this not exists
+		 * @param number the identification number of the client
+		 * @return Client c
+		 * @throws SearchException when the client doesn exists
+		 */
 		public Client SearchClient(int number) throws SearchException {
 			Client c = null;
 			boolean exit = false;
@@ -258,6 +328,16 @@ public class Restaurant implements Serializable{
 			return c;
 		}
 		
+		/**
+		 * update all data
+		 * pre:
+		 * pos: update all the data of the restaurant
+		 * @param nit the nit
+		 * @param name the name
+		 * @param nameAdmin the name admin
+		 * @param lispro the product list
+		 * @param clientss the client list
+		 */
 		 public void updateAllData(int nit,String name,String nameAdmin,List<Product> lispro,List<Client> clientss) {
 				 setNit(nit);
 				 setName(name);
