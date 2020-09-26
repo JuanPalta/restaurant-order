@@ -35,7 +35,7 @@ class ClientTest {
 	}
 	
 	@Test
-	public void testException() {
+	public void testIdentificationException() {
 		try {
 		setupStage1();
 		}

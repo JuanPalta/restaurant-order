@@ -211,12 +211,14 @@ public class Client implements Serializable,Comparable<Client> {
 	 */
 	public void changeState(String state, int index) throws ChangeStateException {
 		if(orders.get(index).getState().equalsIgnoreCase("REQUESTED") && state.equalsIgnoreCase("IN PROCESS") || state.equalsIgnoreCase("SHIPPED") || state.equalsIgnoreCase("DELIVERED") ) {
-			
 			orders.get(index).setState(state);
+			System.out.println("STATE CHANGED SUCCESSFULLY");
 		} else if(orders.get(index).getState().equalsIgnoreCase("IN PROCESS") && state.equalsIgnoreCase("SHIPPED") || state.equalsIgnoreCase("DELIVERED") ){
 			orders.get(index).setState(state);
+			System.out.println("STATE CHANGED SUCCESSFULLY");
 		} else if(orders.get(index).getState().equalsIgnoreCase("SHIPPED") && state.equalsIgnoreCase("DELIVERED")) {
 			orders.get(index).setState(state);
+			System.out.println("STATE CHANGED SUCCESSFULLY");
 		}
 			else {
 			throw new ChangeStateException();
@@ -263,13 +265,13 @@ public class Client implements Serializable,Comparable<Client> {
 			 ArrayList<Product> products = new ArrayList<>();
 			 String[] sp = line.split(separator);
 			 try {
-				if(SearchOrder(Integer.parseInt(sp[0])) != null) {
+				if(searchOrder(Integer.parseInt(sp[0])) != null) {
 				 for(int i=0;i<r.getProducts().size();i++) {
 					 
 					 if(Integer.parseInt(sp[1]) == r.getProducts().get(i).getCode()) {
 						  
 					 try {
-						SearchOrder(Integer.parseInt(sp[0])).getProducts().add(new Product(Integer.parseInt(sp[1]),restaurantNit,Integer.parseInt(sp[2]),sp[3],sp[4]));
+						searchOrder(Integer.parseInt(sp[0])).getProducts().add(new Product(Integer.parseInt(sp[1]),restaurantNit,Integer.parseInt(sp[2]),sp[3],sp[4]));
 					} catch (NumberFormatException e) {
 						
 						e.printStackTrace();
@@ -317,7 +319,7 @@ public class Client implements Serializable,Comparable<Client> {
 	 * @return Order the order
 	 * @throws SearchException the order doesnt exist
 	 */
-		public Order SearchOrder(int code) throws SearchException {
+		public Order searchOrder(int code) throws SearchException {
 		Order o = null;
 		boolean exit = false;
 		for(int i=0;i<orders.size() && exit == false;i++) {

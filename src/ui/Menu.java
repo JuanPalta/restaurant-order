@@ -21,7 +21,7 @@ public class Menu {
 	public final static int SHOW = 7;
 	public final static int FIND_CLIENT = 8;
 	public final static int EXIT = 9;
-	public final static String principal = "1.REGISTER" + "\n" + "2.UPDATE DATA" + "\n"+ "3.CHANGE STATE" + "\n" + "4.SAVE" + "\n" + "5.IMPORT" + "\n" + 
+	public final static String PRINCIPAL = "1.REGISTER" + "\n" + "2.UPDATE DATA" + "\n"+ "3.CHANGE STATE" + "\n" + "4.SAVE" + "\n" + "5.IMPORT" + "\n" + 
 										   "6.EXPORT" + "\n" + "7.SHOW IN SCREEN" + "\n" + "8.FIND CLIENT " + "\n" + "9.EXIT";
 	Scanner sc = new Scanner(System.in);
 	RestaurantAssociation restaurantA;
@@ -36,7 +36,7 @@ public class Menu {
 	int option = 0;
 	while(option != EXIT) {
 	System.out.println("WELCOME TO THE RESTAURANTS PROGRAM" + "\n" + "CHOOSE AN OPTION: ");
-	System.out.println(principal);
+	System.out.println(PRINCIPAL);
 	option = Integer.parseInt(sc.nextLine());
 	switch(option){
 	
@@ -455,7 +455,7 @@ public class Menu {
 			 
 			 case 1:
 				 try {
-					if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
+					if(restaurantA.getRestaurants().get(index).searchClient(in) != null) {
 						 
 						 System.out.println("INSERT THE IDENTIFICATION NUMBER: ");
 						 int nin = Integer.parseInt(sc.nextLine());
@@ -469,7 +469,7 @@ public class Menu {
 						 String lname = sc.nextLine();
 						 System.out.println("INSERT THE ADDRES: ");
 						 String addres = sc.nextLine();
-						 restaurantA.getRestaurants().get(index).SearchClient(in).updateAllData(nin,phone,type,fname,lname,addres);
+						 restaurantA.getRestaurants().get(index).searchClient(in).updateAllData(nin,phone,type,fname,lname,addres);
 						 System.out.println("UPDATE SUCCESFULY");
 						 restaurantA.saveRestaurants();
 					 } else {
@@ -495,13 +495,13 @@ public class Menu {
 				 
 			 case 2:
 				 try {
-					if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
+					if(restaurantA.getRestaurants().get(index).searchClient(in) != null) {
 						 System.out.println("INSERT THE FIRST NAME: ");
 						 String fname = sc.nextLine();
 						 System.out.println("INSERT THE LAST NAME: ");
 						 String lname = sc.nextLine();
-						 restaurantA.getRestaurants().get(index).SearchClient(in).setFirstName(fname);
-						 restaurantA.getRestaurants().get(index).SearchClient(in).setLastName(lname);
+						 restaurantA.getRestaurants().get(index).searchClient(in).setFirstName(fname);
+						 restaurantA.getRestaurants().get(index).searchClient(in).setLastName(lname);
 						 System.out.println("UPDATE SUCCESFULY");
 						 restaurantA.saveRestaurants();
 					 }
@@ -523,10 +523,10 @@ public class Menu {
 			 case 3:
 				 
 				 try {
-					if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
-						 System.out.println("INSERT THE IDENTIFICATION NUMBER ");
+					if(restaurantA.getRestaurants().get(index).searchClient(in) != null) {
+						 System.out.println("INSERT THE IDENTIFCATION NUMBER ");
 						 int n = Integer.parseInt(sc.nextLine());
-						 restaurantA.getRestaurants().get(index).SearchClient(in).setIdentificationNumber(n);
+						 restaurantA.getRestaurants().get(index).searchClient(in).setIdentificationNumber(n);
 						 System.out.println("UPDATE SUCCESFULY");
 						 restaurantA.saveRestaurants();
 					 }
@@ -550,10 +550,10 @@ public class Menu {
 				 
 			 case 4:
 				 try {
-					if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
+					if(restaurantA.getRestaurants().get(index).searchClient(in) != null) {
 						 System.out.println("INSERT THE IDENTIFICATION TYPE: TI/CC/CE/PP");
 						 String type = sc.nextLine();
-						 restaurantA.getRestaurants().get(index).SearchClient(in).setIdentificationType(type);
+						 restaurantA.getRestaurants().get(index).searchClient(in).setIdentificationType(type);
 						 System.out.println("UPDATE SUCCESFULY");
 						 restaurantA.saveRestaurants();
 					 }
@@ -573,10 +573,10 @@ public class Menu {
 				 break;
 			 case 5:
 				 try {
-					if(restaurantA.getRestaurants().get(index).SearchClient(in) != null) {
+					if(restaurantA.getRestaurants().get(index).searchClient(in) != null) {
 						 System.out.println("INSERT THE ADDRES");
 						 String addres = sc.nextLine();
-						 restaurantA.getRestaurants().get(index).SearchClient(in).setAddres(addres);
+						 restaurantA.getRestaurants().get(index).searchClient(in).setAddres(addres);
 						 System.out.println("UPDATE SUCCESFULY");
 						 restaurantA.saveRestaurants();
 					 }
@@ -609,7 +609,7 @@ public class Menu {
 			 switch(optionP) {
 			 
 			 case 1:
-				 if(restaurantA.getRestaurants().get(index).SearchProduct(code) != null) {
+				 if(restaurantA.getRestaurants().get(index).searchProduct(code) != null) {
 					 System.out.println("INSERT THE CODE");
 					 int codep = Integer.parseInt(sc.nextLine());
 					 System.out.println("INSERT THE COST");
@@ -618,7 +618,7 @@ public class Menu {
 					 String namep = sc.nextLine();
 					 System.out.println("INSERT THE DESCRIPTION"); 
 					 String description = sc.nextLine();
-					 restaurantA.getRestaurants().get(index).SearchProduct(code).updateAllData(codep,costp,namep,description);
+					 restaurantA.getRestaurants().get(index).searchProduct(code).updateAllData(codep,costp,namep,description);
 					 System.out.println("UPDATE SUCCESFULY");
 					 restaurantA.saveRestaurants();
 				 }
@@ -629,10 +629,10 @@ public class Menu {
 				 break;
 				 
 			 case 2:
-				 if(restaurantA.getRestaurants().get(index).SearchProduct(code) != null) {
+				 if(restaurantA.getRestaurants().get(index).searchProduct(code) != null) {
 					 System.out.println("INSERT THE CODE");
 					 int codep = Integer.parseInt(sc.nextLine());
-					 restaurantA.getRestaurants().get(index).SearchProduct(code).setCode(codep);
+					 restaurantA.getRestaurants().get(index).searchProduct(code).setCode(codep);
 					 System.out.println("UPDATE SUCCESFULY");
 					 restaurantA.saveRestaurants();
 				 }
@@ -644,10 +644,10 @@ public class Menu {
 				 break;
 				 
 			 case 3:
-				 if(restaurantA.getRestaurants().get(index).SearchProduct(code) != null) {
+				 if(restaurantA.getRestaurants().get(index).searchProduct(code) != null) {
 					 System.out.println("INSERT THE COST");
 					 int costp = Integer.parseInt(sc.nextLine());
-					 restaurantA.getRestaurants().get(index).SearchProduct(code).setCost(costp);
+					 restaurantA.getRestaurants().get(index).searchProduct(code).setCost(costp);
 					 System.out.println("UPDATE SUCCESFULY");
 					 restaurantA.saveRestaurants();
 				 }
@@ -658,10 +658,10 @@ public class Menu {
 				 break;
 				 
 			 case 4:
-				 if(restaurantA.getRestaurants().get(index).SearchProduct(code) != null) {
+				 if(restaurantA.getRestaurants().get(index).searchProduct(code) != null) {
 					 System.out.println("INSERT THE NAME");
 					 String namep = sc.nextLine();
-					 restaurantA.getRestaurants().get(index).SearchProduct(code).setName(namep);
+					 restaurantA.getRestaurants().get(index).searchProduct(code).setName(namep);
 					 System.out.println("UPDATE SUCCESFULY");
 					 restaurantA.saveRestaurants();
 				 }
@@ -672,10 +672,10 @@ public class Menu {
 				 break;
 				 
 			 case 5:
-				 if(restaurantA.getRestaurants().get(index).SearchProduct(code) != null) {
+				 if(restaurantA.getRestaurants().get(index).searchProduct(code) != null) {
 					 System.out.println("INSERT THE DESCRIPTION");
 					 String description = sc.nextLine();
-					 restaurantA.getRestaurants().get(index).SearchProduct(code).setDescription(description);
+					 restaurantA.getRestaurants().get(index).searchProduct(code).setDescription(description);
 					 System.out.println("UPDATE SUCCESFULY");
 					 restaurantA.saveRestaurants();
 				 }
@@ -701,7 +701,7 @@ public class Menu {
 			 int codeu = Integer.parseInt(sc.nextLine());
 			 Order order = null;
 			try {
-				order = restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu);
+				order = restaurantA.getRestaurants().get(index).getClients().get(inclient).searchOrder(codeu);
 			} catch (SearchException e) {
 				
 				e.printStackTrace();
@@ -738,8 +738,8 @@ public class Menu {
 					 
 				 case 2:
 					 try {
-						for(int i=0;i<restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().size();i++) {
-							 Product product = restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().get(i);
+						for(int i=0;i<restaurantA.getRestaurants().get(index).getClients().get(inclient).searchOrder(codeu).getProducts().size();i++) {
+							 Product product = restaurantA.getRestaurants().get(index).getClients().get(inclient).searchOrder(codeu).getProducts().get(i);
 							 System.out.println((i+1) + "." + product.getName() + " " + product.getDescription() + " " + product.getCode());
 						 }
 					} catch (SearchException e) {
@@ -749,7 +749,7 @@ public class Menu {
 					 System.out.println("PUT THE INDEX OF THE PRODUCT TO REMOVE");
 					 int indexR = Integer.parseInt(sc.nextLine())-1;
 					 try {
-						restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).getProducts().remove(indexR);
+						restaurantA.getRestaurants().get(index).getClients().get(inclient).searchOrder(codeu).getProducts().remove(indexR);
 					} catch (SearchException e) {
 						
 						e.printStackTrace();
@@ -793,7 +793,7 @@ public class Menu {
 					 else {
 						 
 						 try {
-							restaurantA.getRestaurants().get(index).getClients().get(inclient).SearchOrder(codeu).setProducts(products);
+							restaurantA.getRestaurants().get(index).getClients().get(inclient).searchOrder(codeu).setProducts(products);
 						} catch (SearchException e) {
 							
 							e.printStackTrace();
@@ -1004,7 +1004,7 @@ public class Menu {
 			}
 			else {
 				
-				System.err.println("Llorela papi");
+				System.err.println("ERROR");
 			}
 			break;
 		case 3:

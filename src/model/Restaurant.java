@@ -292,7 +292,7 @@ public class Restaurant implements Serializable{
 		 * @param code the code of the product
 		 * @return Product n
 		 */
-		public Product SearchProduct(int code) {
+		public Product searchProduct(int code) {
 		Product n = null;
 		boolean exit = false;
 		for(int i=0;i<products.size() && exit == false;i++) {
@@ -312,7 +312,7 @@ public class Restaurant implements Serializable{
 		 * @return Client c
 		 * @throws SearchException when the client doesn exists
 		 */
-		public Client SearchClient(int number) throws SearchException {
+		public Client searchClient(int number) throws SearchException {
 			Client c = null;
 			boolean exit = false;
 			for(int i=0;i<clients.size() && exit == false;i++) {

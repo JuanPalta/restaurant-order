@@ -29,7 +29,7 @@ class RestaurantTest {
 	@Test
 	public void testSearchProduct() {
 		setupScenary1();
-		if(restaurant.SearchProduct(23232) != null) {
+		if(restaurant.searchProduct(23232) != null) {
 			assertTrue(true);
 		}
 	}
