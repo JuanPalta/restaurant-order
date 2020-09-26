@@ -11,7 +11,6 @@ import java.io.PrintWriter;
 
 import exceptions.ChangeStateException;
 import exceptions.IdentificationException;
-import exceptions.SearchException;
 
 /**
  * @author JuanP
@@ -43,20 +42,23 @@ public class Client implements Serializable, Comparable<Client> {
 	 */
 	public Client(int identificationNumber, int phone, String identificationType, String firstName, String lastName,
 			String addres) throws IdentificationException {
-		if (identificationType != "TI" || identificationType != "CE" || identificationType != "CC"
-				|| identificationType != "PP") {
-			throw new IdentificationException();
-		} else {
-
-			this.identificationNumber = identificationNumber;
-			this.phone = phone;
-
-			this.identificationType = identificationType;
-			this.firstName = firstName;
-			this.lastName = lastName;
-			this.addres = addres;
-			orders = new ArrayList<Order>();
-		}
+		
+			if(identificationType.equalsIgnoreCase("TI") || identificationType.equalsIgnoreCase("CE") || identificationType.equalsIgnoreCase("CC")
+					|| identificationType.equalsIgnoreCase("PP")) {
+				
+				this.identificationNumber = identificationNumber;
+				this.phone = phone;
+				this.identificationType = identificationType;
+				this.firstName = firstName;
+				this.lastName = lastName;
+				this.addres = addres;
+				orders = new ArrayList<Order>();
+			}
+			
+			
+			else {
+				throw new IdentificationException();
+			}
 	}
 
 	/**
@@ -266,9 +268,6 @@ public class Client implements Serializable, Comparable<Client> {
 							} catch (NumberFormatException e) {
 
 								e.printStackTrace();
-							} catch (SearchException e) {
-
-								e.printStackTrace();
 							}
 
 						}
@@ -289,9 +288,6 @@ public class Client implements Serializable, Comparable<Client> {
 			} catch (NumberFormatException e) {
 
 				e.printStackTrace();
-			} catch (SearchException e) {
-
-				e.printStackTrace();
 			}
 
 			line = reader.readLine();
@@ -306,9 +302,9 @@ public class Client implements Serializable, Comparable<Client> {
 	 * 
 	 * @param code the code
 	 * @return Order the order
-	 * @throws SearchException the order doesnt exist
+	 *
 	 */
-	public Order searchOrder(int code) throws SearchException {
+	public Order searchOrder(int code){
 		Order o = null;
 		boolean exit = false;
 		for (int i = 0; i < orders.size() && exit == false; i++) {
@@ -317,9 +313,6 @@ public class Client implements Serializable, Comparable<Client> {
 				o = orders.get(i);
 				exit = true;
 			}
-		}
-		if (exit == false) {
-			throw new SearchException();
 		}
 		return o;
 	}

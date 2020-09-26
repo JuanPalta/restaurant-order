@@ -27,9 +27,9 @@ class ClientTest {
 	public void setupStage2()throws ChangeStateException, IdentificationException{
 	client = new Client(21212,32343,"CC","JUAN","GOMEZ","CIUDAD JARDIN");
 	product = new Product(232432,23131,1232,"YUCA","Is a yuca");
+	products = new ArrayList<Product>();
 	products.add(product);
 	order = new Order(232432,23131,products);
-	order.setState("DELIVERED");
 	client.orders.add(order);
 	
 	}
@@ -47,7 +47,8 @@ class ClientTest {
 	public void testSearchException() {
 		try {
 			setupStage2();
-			client.changeState("REQUESTED", 1);
+			client.changeState("DELIVERED", 0);
+			client.changeState("REQUESTED", 0);
 		} catch (IdentificationException e) {
 			// TODO Auto-generated catch block
 		} catch (ChangeStateException e) {

@@ -700,12 +700,7 @@ public class Menu {
 					System.out.println("INSERT THE CODE OF THE ORDER TO UPDATE");
 					int codeu = Integer.parseInt(sc.nextLine());
 					Order order = null;
-					try {
-						order = restaurantA.getRestaurants().get(index).getClients().get(inclient).searchOrder(codeu);
-					} catch (SearchException e) {
-
-						e.printStackTrace();
-					}
+					order = restaurantA.getRestaurants().get(index).getClients().get(inclient).searchOrder(codeu);
 					if (order != null) {
 						System.out.println(
 								"CHOOSE AN OPTION : 1.ADD A PRODUCT  2.REMOVE A PRODUCT 3.OVERWRITE ALL PRODUCTS");
@@ -738,27 +733,17 @@ public class Menu {
 							break;
 
 						case 2:
-							try {
-								for (int i = 0; i < restaurantA.getRestaurants().get(index).getClients().get(inclient)
-										.searchOrder(codeu).getProducts().size(); i++) {
-									Product product = restaurantA.getRestaurants().get(index).getClients().get(inclient)
-											.searchOrder(codeu).getProducts().get(i);
-									System.out.println((i + 1) + "." + product.getName() + " "
-											+ product.getDescription() + " " + product.getCode());
-								}
-							} catch (SearchException e) {
-
-								e.printStackTrace();
+							for (int i = 0; i < restaurantA.getRestaurants().get(index).getClients().get(inclient)
+									.searchOrder(codeu).getProducts().size(); i++) {
+								Product product = restaurantA.getRestaurants().get(index).getClients().get(inclient)
+										.searchOrder(codeu).getProducts().get(i);
+								System.out.println((i + 1) + "." + product.getName() + " "
+										+ product.getDescription() + " " + product.getCode());
 							}
 							System.out.println("PUT THE INDEX OF THE PRODUCT TO REMOVE");
 							int indexR = Integer.parseInt(sc.nextLine()) - 1;
-							try {
-								restaurantA.getRestaurants().get(index).getClients().get(inclient).searchOrder(codeu)
-										.getProducts().remove(indexR);
-							} catch (SearchException e) {
-
-								e.printStackTrace();
-							}
+							restaurantA.getRestaurants().get(index).getClients().get(inclient).searchOrder(codeu)
+									.getProducts().remove(indexR);
 							restaurantA.saveRestaurants();
 							break;
 						case 3:
@@ -798,13 +783,8 @@ public class Menu {
 								System.err.println("This restaurant dont have a product with this code");
 							} else {
 
-								try {
-									restaurantA.getRestaurants().get(index).getClients().get(inclient)
-											.searchOrder(codeu).setProducts(products);
-								} catch (SearchException e) {
-
-									e.printStackTrace();
-								}
+								restaurantA.getRestaurants().get(index).getClients().get(inclient)
+										.searchOrder(codeu).setProducts(products);
 								System.out.println("Products with a correct code added correctly");
 								restaurantA.saveRestaurants();
 							}
